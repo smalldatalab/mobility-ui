@@ -1,0 +1,78 @@
+@charset "utf-8";
+
+.top-area {
+  background-color: #16A085;
+  width: 100%;
+  height: 15em;
+}
+.devices {
+  padding-top: 4em;
+}
+.date-area {
+  padding-top: 1em;
+}
+
+#walking-distance {
+  font-size: 1.6em;
+}
+
+#active-time {
+  font-size: 1.6em;
+}
+
+#away-from-home {
+  font-size: 1.6em;
+}
+
+.map-title {
+  background-color:#16A085;
+  padding-top: 0.1em;
+  padding-bottom: 0.1em;
+
+}
+
+.home-data, .active-data, .walking-data {
+  padding-top: 2em;
+  padding-bottom: 2em;
+}
+
+h3, h4 {
+  font-weight: 100 !important;
+}
+
+.location-info {
+  padding-top: 2em;
+  padding-bottom: 2em;
+}
+
+.row {
+  margin-right:0 !important;
+  margin-left: -3em !important;
+}
+
+.solid_border {
+  /*text-align: center;*/
+  height: 1em;
+  /*border-top-style: solid;*/
+  /*border-bottom-style: solid;*/
+  /*color: #2c3e50;*/
+  /*font-size: 1em;*/
+  /*font-weight: bold;*/
+  width: 100%;
+}
+.hours-out-of-house-color {
+  background-color: #3C85DA;
+}
+
+.minutes-active-color {
+  background-color: #D36D6D;
+}
+
+.miles-walked-color {
+  background-color: #E2D642;
+}
+
+.data-bar {
+  padding-bottom: .5em;
+}
+
