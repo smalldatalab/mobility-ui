@@ -1,0 +1,204 @@
+---
+title: Mobility-omh | Daily Data
+---
+
+<div class="mobility-page">
+  <div class="top-area">
+    <div class="row">
+      <div class="col-xs-6 col-xs-offset-1">
+        <div class="title">
+          <h1 class="text-left">
+            Mobility-omh
+          </h1>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="row">
+      <div class="col-xs-11 col-xs-offset-1">
+        <div class="btn-group btn-group-justified devices" role="group">
+          <div class="btn-group" role="group">
+            <button class="btn btn-primary btn-device selected" type="button" data="android">
+              Android
+            </button>
+          </div>
+          <div class="btn-group" role="group">
+            <button class="btn btn-success btn-device unselected" type='button' data='ios'>
+              iPhone
+            </button>
+          </div>
+          <div class="btn-group" role="group">
+            <button class="btn btn-device unselected" type="button" data="moves-app">
+              Moves
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-xs-9 col-xs-offset-2">
+        <div class="date-area">
+          <div class="input-group date">
+            <input class="form-control">
+              <span class="input-group-addon">
+                <i class="glyphicon glyphicon-th"></i>
+              </span>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+  <div class="bottom-area">
+    <hr>
+    <div class="data-area">
+      <div class="walking-data">
+        <div class="row">
+          <div class="col-xs-4 col-xs-offset-1">
+            <h4>Miles Walked</h4>
+          </div>
+          <div class="col-xs-1 pull-right">
+            <p id="walking-distance" style="font-size: 1.8em" class="pull-right">2.2</p>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-xs-2 col-xs-offset-1">
+            <img src="images/foot.png" style="height: 3em;">
+          </div>
+          <div class="col-xs-9">
+            <table>
+              <th style="float:right;" class="data-bar"><img src="images/arrow_down.png" style="height: 1.5em;">3.4</th>
+              <tr class="padding data-bar" id="distance-bar">
+                <td class="solid_border miles-walked-color"></td>
+                <td></td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <hr>
+
+      <div class="active-data">
+        <div class="row">
+          <div class="col-xs-5 col-xs-offset-1">
+            <h4>Minutes Active</h4>
+          </div>
+          <div class="col-xs-1 pull-right">
+            <p id="active-time" style="font-size: 1.8em;" class="pull-right">43.2</p>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-xs-2 col-xs-offset-1">
+            <img src="images/active_heart.png" style="height: 3em; width: 3em;">
+
+          </div>
+          <div class="col-xs-9">
+            <table>
+              <tr>
+                <th style="float:right;" class="data-bar"><img src="images/arrow_down.png" style="height: 1.5em;">3.4</th>
+              </tr>
+              <tr class="padding" id="active-bar">
+                <td class="solid_border minutes-active-color"></td>
+                <td></td>
+              </tr>
+            </table>
+          </div>
+
+          <div class="col-xs-2">
+          </div>
+        </div>
+      </div>
+
+      <hr>
+
+      <div class="home-data">
+        <div class="row">
+          <div class="col-xs-6 col-xs-offset-1">
+            <h4>Hours Out of House</h4>
+          </div>
+          <div class="col-xs-2 pull-right">
+            <p id="away-from-home" style="font-size: 1.8em" class="pull-right">12.4</p>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-xs-2 col-xs-offset-1">
+            <img src="images/home.png" style="height: 3em;">
+          </div>
+          <div class="col-xs-9">
+            <table>
+              <tr>
+                <th style="float:right;" class="data-bar"><img src="images/arrow_up.png" style="height: 1.5em;">1.3</th>
+              </tr>
+              <tr class="padding" id="away-bar">
+                <td class="solid_border hours-out-of-house-color"></td>
+                <td></td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </div>
+      <hr>
+
+    </div>
+
+
+    <div class="location-area">
+      <div class="map-title">
+        <h3 class="text-center"><img src="images/location.png" style="height:2em;">  Places Visited</h3>
+      </div>
+
+      <div id="google-locations">
+        <hr>
+        <div class="location-unit">
+          <div class="row location-info">
+            <div class="col-xs-8 col-xs-offset-1">
+             <!--  <img src="images/location.png" style="height: 3em;"> -->
+              <p class="locations">Prospect Park, Brooklyn, NY</p>
+            </div>
+
+            <div class="col-xs-2 col-xs-offset-1">
+              <!-- <img src="images/time.png" style="height: 3em;"> -->
+              <p class="time">12:43</p>
+            </div>
+          </div>
+
+          <div class="maps">
+            <img src="images/street_view.png" width="100%">
+          </div>
+          <hr>
+        </div>
+
+
+        <div class="location-unit">
+          <div class="row location-info">
+            <div class="col-xs-8 col-xs-offset-1">
+             <!--  <img src="images/location.png" style="height: 3em;"> -->
+              <p class="locations">Prospect Park, Brooklyn, NY</p>
+            </div>
+
+            <div class="col-xs-2 col-xs-offset-1">
+              <!-- <img src="images/time.png" style="height: 3em;"> -->
+              <p class="time">12:43</p>
+            </div>
+          </div>
+
+          <div class="maps">
+            <img src="images/street_view.png" width="100%">
+          </div>
+        </div>
+
+        <hr>
+      </div>
+    </div>
+  </div>
+
+</div>
