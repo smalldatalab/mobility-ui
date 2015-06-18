@@ -36,7 +36,7 @@
   padding-bottom: 2em;
 }
 
-h3, h4 {
+h3, h4{
   font-weight: 100 !important;
 }
 
@@ -76,3 +76,28 @@ h3, h4 {
   padding-bottom: .5em;
 }
 
+
+.locations, .time {
+  font-size: 3em;
+}
+
+.title h1 {
+  font-weight: 120;
+  font-size: 4em;
+}
+
+#walking-distance, #active-time, #away-from-home {
+  font-size: 4em;
+}
+
+.data-icon {
+  height: 8em;
+}
+.data-difference {
+  font-weight: 100;
+  font-size: 3em;
+}
+
+.arrow {
+  height: 6em !important;
+}
