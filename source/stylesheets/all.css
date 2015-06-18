@@ -6,10 +6,10 @@
   height: 20em;
 }
 .devices {
-  padding-top: 6em;
+  padding-top: 2em;
 }
 .date-area {
-  padding-top: 1em;
+  padding-top: 2em;
 }
 
 #walking-distance {
@@ -101,4 +101,8 @@ h3, h4 {
 
 .arrow {
   height: 6em !important;
+}
+
+.device-type {
+  font-size: 3em;
 }
