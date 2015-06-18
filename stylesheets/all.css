@@ -6,10 +6,11 @@
   height: 20em;
 }
 .devices {
-  padding-top: 2em;
+  padding-top: 1em;
 }
 .date-area {
-  padding-top: 2em;
+  padding-top: 1em;
+  height: 2em;
 }
 
 #walking-distance {
