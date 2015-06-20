@@ -108,6 +108,11 @@ h3, h4 {
   font-size: 3em;
 }
 
-#previous-date, #current-date, #next-date {
+#previous-date, #next-date {
+  font-size: 3em;
+}
+
+#current-date {
   font-size: 2em;
+  color:#16A085;
 }
