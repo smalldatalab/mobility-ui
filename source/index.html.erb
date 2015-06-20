@@ -79,7 +79,7 @@ title: Mobility-omh | Daily Data
             <h4>Miles Walked</h4>
           </div>
           <div class="col-xs-1 pull-right">
-            <p id="walking-distance" class="pull-right">2.2</p>
+            <p id="walking-distance" class="pull-right"></p>
           </div>
         </div>
 
@@ -88,13 +88,26 @@ title: Mobility-omh | Daily Data
             <img src="images/foot.png"  class="data-icon">
           </div>
           <div class="col-xs-9">
-            <table>
-              <th style="float:right;" class="data-bar"><img src="images/arrow_down.png" class="arrow"><span class="data-difference">3.4</span></th>
-              <tr class="padding data-bar" id="distance-bar">
-                <td class="solid_border miles-walked-color"></td>
-                <td></td>
-              </tr>
-            </table>
+            <div>
+              <div style="float:right;" class="data-bar" id="miles-difference">
+              </div>
+
+
+              <div id="miles-3">
+
+                <div id="miles-2">
+
+                  <div id="miles-1">
+
+                  </div>
+
+                </div>
+              </div>
+
+
+            </div>
+
+
           </div>
         </div>
       </div>
@@ -107,7 +120,7 @@ title: Mobility-omh | Daily Data
             <h4>Minutes Active</h4>
           </div>
           <div class="col-xs-1 pull-right">
-            <p id="active-time" class="pull-right">43.2</p>
+            <p id="active-time" class="pull-right"></p>
           </div>
         </div>
 
@@ -117,19 +130,25 @@ title: Mobility-omh | Daily Data
 
           </div>
           <div class="col-xs-9">
-            <table>
-              <tr>
-                <th style="float:right;" class="data-bar"><img src="images/arrow_down.png" class="arrow"><span class="data-difference">15.7</span></th>
-              </tr>
-              <tr class="padding" id="active-bar">
-                <td class="solid_border minutes-active-color"></td>
-                <td></td>
-              </tr>
-            </table>
+            <div>
+              <div style="float:right;" class="data-bar" id="active-difference">
+
+              </div>
+
+              <div id="active-3">
+                <div id="active-2">
+                  <div id="active-1">
+
+                  </div>
+
+                </div>
+
+              </div>
+
+            </div>
+
           </div>
 
-          <div class="col-xs-2">
-          </div>
         </div>
       </div>
 
@@ -141,7 +160,7 @@ title: Mobility-omh | Daily Data
             <h4>Hours Out of House</h4>
           </div>
           <div class="col-xs-3 pull-right">
-            <p id="away-from-home" class="pull-right">12.4</p>
+            <p id="away-from-home" class="pull-right"></p>
           </div>
         </div>
 
@@ -150,15 +169,22 @@ title: Mobility-omh | Daily Data
             <img src="images/home.png" class="data-icon">
           </div>
           <div class="col-xs-9">
-            <table>
-              <tr>
-                <th style="float:right;" class="data-bar"><img src="images/arrow_up.png" class="arrow"><span class="data-difference">1.3</span></th>
-              </tr>
-              <tr class="padding" id="away-bar">
-                <td class="solid_border hours-out-of-house-color"></td>
-                <td></td>
-              </tr>
-            </table>
+            <div>
+              <div style="float:right;" class="data-bar" id="away-difference">
+
+              </div>
+
+              <div id="away-3">
+                <div id="away-2">
+                  <div id="away-1">
+
+                  </div>
+
+                </div>
+
+              </div>
+
+            </div>
           </div>
         </div>
       </div>
@@ -173,16 +199,16 @@ title: Mobility-omh | Daily Data
       </div>
 
       <div id="google-locations">
-        <hr>
+     <!--    <hr>
         <div class="location-unit">
           <div class="row location-info">
             <div class="col-xs-8 col-xs-offset-1">
-             <!--  <img src="images/location.png" style="height: 3em;"> -->
+              <img src="images/location.png" style="height: 3em;">
               <span class="locations">Prospect Park, Brooklyn, NY</span>
             </div>
 
             <div class="col-xs-2 col-xs-offset-1">
-              <!-- <img src="images/time.png" style="height: 3em;"> -->
+              <img src="images/time.png" style="height: 3em;">
               <span class="time">12:43</span>
             </div>
           </div>
@@ -197,12 +223,12 @@ title: Mobility-omh | Daily Data
         <div class="location-unit">
           <div class="row location-info">
             <div class="col-xs-8 col-xs-offset-1">
-             <!--  <img src="images/location.png" style="height: 3em;"> -->
+              <img src="images/location.png" style="height: 3em;">
               <p class="locations">Prospect Park, Brooklyn, NY</p>
             </div>
 
             <div class="col-xs-2 col-xs-offset-1">
-              <!-- <img src="images/time.png" style="height: 3em;"> -->
+              <img src="images/time.png" style="height: 3em;">
               <p class="time">12:43</p>
             </div>
           </div>
@@ -212,7 +238,7 @@ title: Mobility-omh | Daily Data
           </div>
         </div>
 
-        <hr>
+        <hr> -->
       </div>
     </div>
   </div>
@@ -224,31 +250,7 @@ title: Mobility-omh | Daily Data
         console.log(today);
         $('#current-date').html(today.format('dddd, MMMM Do YYYY'));
 
-        $('#next-date').click(function(){
-          var tomorrow = moment(today).add('days', 1);
-          console.log(tomorrow);
-          today = moment(today).add('days', 1);
-          console.log(today);
-          $('#current-date').html(today.format('dddd, MMMM Do YYYY'));
-          redraw();
-        });
-
-        $('#previous-date').click(function(){
-          var yesterday = moment(today).subtract('days', 1);
-          console.log(yesterday);
-          today = moment(today).subtract('days', 1);
-          console.log(today);
-          $('#current-date').html(today.format('dddd, MMMM Do YYYY'));
-          redraw();
-        });
-
-        $('#current-date').click(function(){
-          var today = moment();
-          $('#current-date').html(today.format('dddd, MMMM Do YYYY'));
-          redraw();
-        });
-
-        var token = url("#access_token");
+        var token = 'd934de49-628f-45cc-849a-dbe1aefdf715';
 
         if(!token)
         {
@@ -258,15 +260,45 @@ title: Mobility-omh | Daily Data
         {
             $.getJSON(dsu + "oauth/check_token?token=" + token)
             .done(function(data) {
+                console.log("Get the token!");
                 var username = data["user_name"];
-                var device = url("#device") || "android";
+                var device =  url("#device") || "android";
                 var date = url("#date")? moment(url("#date")).toDate() : new Date();
                 var redraw = function(){
-                    deletePreviousImg();
-                    drawDate(username, moment(date).format('YYYY-MM-DD'), device, token);
+                    // deletePreviousImg();
+                    // drawDate(username, moment(date).format('YYYY-MM-DD'), device, token);
                     deletePreviousBar();
                     showSummary(username, date, device, token);
                 };
+                redraw();
+                $('#next-date').click(function(){
+                    var tomorrow = moment(today).add(1, 'days');
+                    console.log(tomorrow);
+                    today = moment(today).add(1, 'days');
+                    console.log(today);
+                    date = today;
+                    $('#current-date').html(today.format('dddd, MMMM Do YYYY'));
+                    redraw();
+                });
+
+                $('#previous-date').click(function(){
+                    var yesterday = moment(today).subtract(1, 'days');
+                    console.log(yesterday);
+                    today = moment(today).subtract(1, 'days');
+                    console.log(today);
+                    $('#current-date').html(today.format('dddd, MMMM Do YYYY'));
+                    date = today;
+                    redraw();
+                });
+
+                $('#current-date').click(function(){
+                    today = moment();
+                    $('#current-date').html(today.format('dddd, MMMM Do YYYY'));
+                    date = today;
+                    redraw();
+                });
+
+
             })
             .fail(function() {
                 window.location.href = dsu + "oauth/authorize?client_id=mobility_visualization&response_type=token";
