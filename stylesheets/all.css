@@ -113,6 +113,8 @@ h3, h4 {
 }
 
 #current-date {
-  font-size: 2em;
-  color:#16A085;
+  font-size: 3em;
+  color: white;
+  padding-left: 2em;
+  padding-right: 2em;
 }
