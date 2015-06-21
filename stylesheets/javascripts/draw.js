@@ -81,7 +81,7 @@ function drawLocationMaps(averg_long, averg_lac, start, end) {
 
     $.ajax({
         type: 'POST',
-        url: 'https://maps.googleapis.com/maps/api/geocode/json?latlng=' + averg_lac + ',' + averg_long + '&result_type=neighborhood&key=AIzaSyAr5wQegNUxBXfXd93DG4_4NbKS89aD2lM',
+        url: 'https://maps.googleapis.com/maps/api/geocode/json?latlng=' + averg_lac + ',' + averg_long + '&result_type=neighborhood&key=AIzaSyC1GFrL26ugupKi80EQynafH6-uiLcgZDg',
         dataType: 'json',
         success: function(data) {
             console.log(data);
