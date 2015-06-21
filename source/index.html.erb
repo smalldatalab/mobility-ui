@@ -249,7 +249,7 @@ title: Mobility-omh | Daily Data
         var today = moment();
         $('#current-date').html(today.format('dddd, MMMM Do YYYY'));
 
-        var token = 'd934de49-628f-45cc-849a-dbe1aefdf715';
+        var token = url("#access_token");
 
         if(!token)
         {
@@ -263,8 +263,8 @@ title: Mobility-omh | Daily Data
                 var device =  url("#device") || "android";
                 var date = url("#date")? moment(url("#date")).toDate() : new Date();
                 var redraw = function(){
-                    // deletePreviousImg();
-                    // drawDate(username, moment(date).format('YYYY-MM-DD'), device, token);
+                    deletePreviousImg();
+                    drawDate(username, moment(date).format('YYYY-MM-DD'), device, token);
                     deletePreviousBar();
                     showSummary(username, date, device, token);
                 };

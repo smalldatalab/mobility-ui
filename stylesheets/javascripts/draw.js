@@ -397,7 +397,7 @@ function showYesterdaySummary(username, date, device, token) {
                 differences_span.className = 'data-difference';
                 differences_span.appendChild(differences_text);
 
-                document.getElementById('active-difference').appendChild(active_span);
+                document.getElementById('active-difference').appendChild(difference_span);
                 if (Number(active) != 0) {
                     active_2.className = 'solid_border minutes-active-color minutes-active-background-color';
                     active_2.setAttribute('style', 'width: 100%');
