@@ -15,7 +15,14 @@ function drawDate(username, date, device, token){
             if (myNode.firstChild) {
                 myNode.removeChild(myNode.firstChild);
             }
-            $("#google-locations").html("No Data for mapping!");
+            var no_data = document.createElement('div');
+            var no_data_text = document.createTextNode("No Data for Mapping!");
+            no_data.setAttribute('style', 'padding-top: 2em; padding-bottom: 2em;')
+
+            no_data.appendChild(no_data_text);
+            $("#google-locations").appendChild(no_data);
+
+            console.log('It is working!');
         }
     });
 }
@@ -35,12 +42,20 @@ function showLocation(data, device) {
                     longitude_sum += obj['longitude'];
                     latitude_sum += obj['latitude'];
                 });
-                return [state, start, end, longitude_sum / long_lat.length, latitude_sum / long_lat.length];
+                console.log(latitude_sum / long_lat.length);
+                console.log(longitude_sum / long_lat.length);
+                console.log(start);
+                console.log(end);
+                return [state, start, end, latitude_sum / long_lat.length, longitude_sum / long_lat.length];
             }
+
         });
+        console.log(rows);
         rows.forEach(function(obj){
             if (typeof obj !== 'undefined') {
                 drawLocationMaps(obj[3], obj[4], obj[1], obj[2]);
+                // console.log('defined!');
+
             }
         });
     }
@@ -71,9 +86,7 @@ function deletePreviousBar() {
     }
 }
 
-function drawLocationMaps(averg_long, averg_lac, start, end) {
-    console.log(averg_long);
-    console.log(averg_lac);
+function drawLocationMaps(averg_lac, averg_long, start, end) {
     var start_hours = start.getHours();
     var end_hours = end.getHours();
     var start_minutes = start.getMinutes();
@@ -81,11 +94,9 @@ function drawLocationMaps(averg_long, averg_lac, start, end) {
 
     $.ajax({
         type: 'POST',
-        url: 'https://maps.googleapis.com/maps/api/geocode/json?latlng=' + averg_lac + ',' + averg_long + '&result_type=neighborhood&key=AIzaSyC1GFrL26ugupKi80EQynafH6-uiLcgZDg',
+        url: 'https://maps.googleapis.com/maps/api/geocode/json?latlng=' + averg_lac + ',' + averg_long + '&key=AIzaSyC1GFrL26ugupKi80EQynafH6-uiLcgZDg',
         dataType: 'json',
         success: function(data) {
-            console.log(data);
-            console.log(data['results'].length);
 
             if (data['results'].length > 0) {
                 var unit_div = document.createElement('div');
@@ -95,7 +106,6 @@ function drawLocationMaps(averg_long, averg_lac, start, end) {
 
                 var neighborhood = data['results'][0]['formatted_address'];
                 var location_text = document.createTextNode(neighborhood);
-                console.log(neighborhood);
 
                 location_p.appendChild(location_text);
                 location_div.appendChild(location_p);
@@ -121,11 +131,11 @@ function drawLocationMaps(averg_long, averg_lac, start, end) {
                 time_div.className = 'col-xs-3 pull-right';
 
 
-
-
                 var map_div = document.createElement('div');
                 var img_div = document.createElement('img');
-                img_div.src = "https://maps.googleapis.com/maps/api/staticmap?center="+ averg_lac + ',' + averg_long + "&zoom=15&size=2000x1000"
+                // img_div.src = "http://maps.googleapis.com/maps/api/staticmap?center=Brooklyn+Bridge,New+York,NY&zoom=14&size=512x512&maptype=roadmap&markers=color:blue%7Clabel:S%7C40.702147,-74.015794&markers=color:green%7Clabel:G%7C40.711614,-74.012318&markers=color:red%7Ccolor:red%7Clabel:C%7C40.718217,-73.998284&sensor=false&key=AIzaSyC1GFrL26ugupKi80EQynafH6-uiLcgZDg";
+
+                img_div.src = "https://maps.googleapis.com/maps/api/staticmap?center="+ averg_lac + "," + averg_long + "&zoom=15&size=2000x1000&maptype=roadmap&markers=color:red%7Clabel:S%7C" + averg_lac + "," + averg_long + "&markers=size:mid&key=AIzaSyC1GFrL26ugupKi80EQynafH6-uiLcgZDg";
                 img_div.setAttribute('style', 'width: 100%');
                 map_div.appendChild(img_div);
                 unit_div.appendChild(map_div);
@@ -136,13 +146,12 @@ function drawLocationMaps(averg_long, averg_lac, start, end) {
                 document.getElementById('google-locations').appendChild(unit_div);
 
             }else {
-                console.log("Where are you?");
-            }
 
+            }
 
         },
         error: function(data) {
-           alert("Can't find the neighborhood!");
+           console.log('Could not find it!');
         }
 
     });
@@ -227,7 +236,7 @@ function showYesterdaySummary(username, date, device, token) {
 
             if (distance_difference > 0) {
                 var arrow_up = document.createElement('img');
-                arrow_up.src = 'stylesheets/images/arrow_up.png';
+                arrow_up.src = 'images/arrow_up.png';
                 arrow_up.className = 'arrow';
 
                 var differences_text = document.createTextNode(distance_difference.toFixed(2));
@@ -259,7 +268,7 @@ function showYesterdaySummary(username, date, device, token) {
                 }
             } else if (distance_difference < 0){
                 var arrow_down = document.createElement('img');
-                arrow_down.src = 'stylesheets/images/arrow_down.png';
+                arrow_down.src = 'images/arrow_down.png';
                 arrow_down.className = 'arrow';
                 var differences_text = document.createTextNode(distance_difference.toFixed(2));
                 var differences_span = document.createElement('span');
@@ -328,7 +337,7 @@ function showYesterdaySummary(username, date, device, token) {
 
             if (active_difference > 0) {
                 var arrow_up = document.createElement('img');
-                arrow_up.src = 'stylesheets/images/arrow_up.png';
+                arrow_up.src = 'images/arrow_up.png';
                 arrow_up.className = 'arrow';
 
 
@@ -359,7 +368,7 @@ function showYesterdaySummary(username, date, device, token) {
                 }
             } else if (active_difference < 0){
                 var arrow_down = document.createElement('img');
-                arrow_down.src = 'stylesheets/images/arrow_down.png';
+                arrow_down.src = 'images/arrow_down.png';
                 arrow_down.className = 'arrow';
 
                 var differences_text = document.createTextNode(Math.abs(active_difference).toFixed(2));
@@ -430,7 +439,7 @@ function showYesterdaySummary(username, date, device, token) {
 
             if (away_difference > 0) {
                  var arrow_up = document.createElement('img');
-                arrow_up.src = 'stylesheets/images/arrow_up.png';
+                arrow_up.src = 'images/arrow_up.png';
                 arrow_up.className = 'arrow';
 
                 var differences_text = document.createTextNode(away_difference.toFixed(2));
@@ -462,7 +471,7 @@ function showYesterdaySummary(username, date, device, token) {
                 }
             } else if (away_difference < 0){
                 var arrow_down = document.createElement('img');
-                arrow_down.src = 'stylesheets/images/arrow_down.png';
+                arrow_down.src = 'images/arrow_down.png';
                 arrow_down.className = 'arrow';
 
                 var differences_text = document.createTextNode(Math.abs(away_difference).toFixed(2));
@@ -530,7 +539,7 @@ function showYesterdaySummary(username, date, device, token) {
                 differences_span.appendChild(differences_text);
 
                 var arrow_up = document.createElement('img');
-                arrow_up.src = 'stylesheets/images/arrow_up.png';
+                arrow_up.src = 'images/arrow_up.png';
                 arrow_up.className = 'arrow';
 
                 document.getElementById('miles-difference').appendChild(arrow_up);
@@ -568,7 +577,7 @@ function showYesterdaySummary(username, date, device, token) {
                 differences_span.appendChild(differences_text);
 
                 var arrow_up = document.createElement('img');
-                arrow_up.src = 'stylesheets/images/arrow_up.png';
+                arrow_up.src = 'images/arrow_up.png';
                 arrow_up.className = 'arrow';
 
                 document.getElementById('active-difference').appendChild(arrow_up);
@@ -584,8 +593,8 @@ function showYesterdaySummary(username, date, device, token) {
 
             var away = $("#away-from-home").html();
             var yesterday_away = 0.00;
-            console.log(yesterday_away);
-            console.log(Number(away) == 0);
+            // e.log(yesterday_awconsolay);
+            // console.log(Number(away) == 0);
             var away_3 = document.getElementById('away-3');
             var away_2 = document.getElementById('away-2');
             var away_1 = document.getElementById('away-1');
@@ -608,7 +617,7 @@ function showYesterdaySummary(username, date, device, token) {
                 differences_span.appendChild(differences_text);
 
                 var arrow_up = document.createElement('img');
-                arrow_up.src = 'stylesheets/images/arrow_up.png';
+                arrow_up.src = 'images/arrow_up.png';
                 arrow_up.className = 'arrow';
 
                 document.getElementById('away-difference').appendChild(arrow_up);

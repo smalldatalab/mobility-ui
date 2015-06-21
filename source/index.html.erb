@@ -247,7 +247,6 @@ title: Mobility-omh | Daily Data
 <script type="text/javascript">
     $(document).ready(function() {
         var today = moment();
-        console.log(today);
         $('#current-date').html(today.format('dddd, MMMM Do YYYY'));
 
         var token = 'd934de49-628f-45cc-849a-dbe1aefdf715';
@@ -260,13 +259,12 @@ title: Mobility-omh | Daily Data
         {
             $.getJSON(dsu + "oauth/check_token?token=" + token)
             .done(function(data) {
-                console.log("Get the token!");
                 var username = data["user_name"];
                 var device =  url("#device") || "android";
                 var date = url("#date")? moment(url("#date")).toDate() : new Date();
                 var redraw = function(){
-                    // deletePreviousImg();
-                    // drawDate(username, moment(date).format('YYYY-MM-DD'), device, token);
+                    deletePreviousImg();
+                    drawDate(username, moment(date).format('YYYY-MM-DD'), device, token);
                     deletePreviousBar();
                     showSummary(username, date, device, token);
                 };
