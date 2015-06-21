@@ -276,8 +276,8 @@
                     var device =  url("#device") || "android";
                     var date = url("#date")? moment(url("#date")).toDate() : new Date();
                     var redraw = function(){
-                        // deletePreviousImg();
-                        // drawDate(username, moment(date).format('YYYY-MM-DD'), device, token);
+                        deletePreviousImg();
+                        drawDate(username, moment(date).format('YYYY-MM-DD'), device, token);
                         deletePreviousBar();
                         showSummary(username, date, device, token);
                     };
