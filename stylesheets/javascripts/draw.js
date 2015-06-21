@@ -125,7 +125,8 @@ function drawLocationMaps(averg_long, averg_lac, start, end) {
 
                 var map_div = document.createElement('div');
                 var img_div = document.createElement('img');
-                img_div.src = "https://maps.googleapis.com/maps/api/staticmap?center="+ averg_lac + ',' + averg_long + "&zoom=14&size=800x400"
+                img_div.src = "https://maps.googleapis.com/maps/api/staticmap?center="+ averg_lac + ',' + averg_long + "&zoom=15&size=2000x1000"
+                img_div.setAttribute('style', 'width: 100%');
                 map_div.appendChild(img_div);
                 unit_div.appendChild(map_div);
                 unit_div.appendChild(hr_line);
