@@ -236,7 +236,7 @@ function showYesterdaySummary(username, date, device, token) {
 
             if (distance_difference > 0) {
                 var arrow_up = document.createElement('img');
-                arrow_up.src = 'images/arrow_up.png';
+                arrow_up.src = 'stylesheets/images/arrow_up.png';
                 arrow_up.className = 'arrow';
 
                 var differences_text = document.createTextNode(distance_difference.toFixed(2));
@@ -268,7 +268,7 @@ function showYesterdaySummary(username, date, device, token) {
                 }
             } else if (distance_difference < 0){
                 var arrow_down = document.createElement('img');
-                arrow_down.src = 'images/arrow_down.png';
+                arrow_down.src = 'stylesheets/images/arrow_down.png';
                 arrow_down.className = 'arrow';
                 var differences_text = document.createTextNode(distance_difference.toFixed(2));
                 var differences_span = document.createElement('span');
@@ -337,7 +337,7 @@ function showYesterdaySummary(username, date, device, token) {
 
             if (active_difference > 0) {
                 var arrow_up = document.createElement('img');
-                arrow_up.src = 'images/arrow_up.png';
+                arrow_up.src = 'stylesheets/images/arrow_up.png';
                 arrow_up.className = 'arrow';
 
 
@@ -368,7 +368,7 @@ function showYesterdaySummary(username, date, device, token) {
                 }
             } else if (active_difference < 0){
                 var arrow_down = document.createElement('img');
-                arrow_down.src = 'images/arrow_down.png';
+                arrow_down.src = 'stylesheets/images/arrow_down.png';
                 arrow_down.className = 'arrow';
 
                 var differences_text = document.createTextNode(Math.abs(active_difference).toFixed(2));
@@ -439,7 +439,7 @@ function showYesterdaySummary(username, date, device, token) {
 
             if (away_difference > 0) {
                  var arrow_up = document.createElement('img');
-                arrow_up.src = 'images/arrow_up.png';
+                arrow_up.src = 'stylesheets/images/arrow_up.png';
                 arrow_up.className = 'arrow';
 
                 var differences_text = document.createTextNode(away_difference.toFixed(2));
@@ -471,7 +471,7 @@ function showYesterdaySummary(username, date, device, token) {
                 }
             } else if (away_difference < 0){
                 var arrow_down = document.createElement('img');
-                arrow_down.src = 'images/arrow_down.png';
+                arrow_down.src = 'stylesheets/images/arrow_down.png';
                 arrow_down.className = 'arrow';
 
                 var differences_text = document.createTextNode(Math.abs(away_difference).toFixed(2));
@@ -539,7 +539,7 @@ function showYesterdaySummary(username, date, device, token) {
                 differences_span.appendChild(differences_text);
 
                 var arrow_up = document.createElement('img');
-                arrow_up.src = 'images/arrow_up.png';
+                arrow_up.src = 'stylesheets/images/arrow_up.png';
                 arrow_up.className = 'arrow';
 
                 document.getElementById('miles-difference').appendChild(arrow_up);
@@ -577,7 +577,7 @@ function showYesterdaySummary(username, date, device, token) {
                 differences_span.appendChild(differences_text);
 
                 var arrow_up = document.createElement('img');
-                arrow_up.src = 'images/arrow_up.png';
+                arrow_up.src = 'stylesheets/images/arrow_up.png';
                 arrow_up.className = 'arrow';
 
                 document.getElementById('active-difference').appendChild(arrow_up);
@@ -593,8 +593,6 @@ function showYesterdaySummary(username, date, device, token) {
 
             var away = $("#away-from-home").html();
             var yesterday_away = 0.00;
-            // e.log(yesterday_awconsolay);
-            // console.log(Number(away) == 0);
             var away_3 = document.getElementById('away-3');
             var away_2 = document.getElementById('away-2');
             var away_1 = document.getElementById('away-1');
@@ -617,7 +615,7 @@ function showYesterdaySummary(username, date, device, token) {
                 differences_span.appendChild(differences_text);
 
                 var arrow_up = document.createElement('img');
-                arrow_up.src = 'images/arrow_up.png';
+                arrow_up.src = 'stylesheets/images/arrow_up.png';
                 arrow_up.className = 'arrow';
 
                 document.getElementById('away-difference').appendChild(arrow_up);
