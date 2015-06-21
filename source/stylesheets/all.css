@@ -155,3 +155,7 @@ h3, h4 {
   padding-left: 2em;
   padding-right: 2em;
 }
+
+.maps {
+  width: 100%;
+}

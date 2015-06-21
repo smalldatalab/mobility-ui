@@ -118,7 +118,7 @@ function drawLocationMaps(averg_long, averg_lac, start, end) {
                 unit_div.appendChild(hr_line);
                 unit_div.appendChild(info_div);
                 time_p.className = 'time';
-                time_div.className = 'col-xs-2 col-xs-offset-1';
+                time_div.className = 'col-xs-2 pull-right';
 
 
 
