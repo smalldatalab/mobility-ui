@@ -270,7 +270,7 @@ function showYesterdaySummary(username, date, device, token) {
                 var arrow_down = document.createElement('img');
                 arrow_down.src = 'stylesheets/images/arrow_down.png';
                 arrow_down.className = 'arrow';
-                var differences_text = document.createTextNode(distance_difference.toFixed(2));
+                var differences_text = document.createTextNode(Math.abs(distance_difference).toFixed(2));
                 var differences_span = document.createElement('span');
                 differences_span.className = 'data-difference';
                 differences_span.appendChild(differences_text);
