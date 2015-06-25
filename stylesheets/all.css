@@ -128,7 +128,9 @@ h3, h4 {
 
 .data-icon {
   height: 10em;
+  width: 9em;
 }
+
 .data-difference {
   font-weight: 100;
   font-size: 4em;
