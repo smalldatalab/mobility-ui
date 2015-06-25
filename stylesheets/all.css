@@ -51,7 +51,7 @@ h3, h4 {
 
 .solid_border {
   /*text-align: center;*/
-  height: 3em;
+  height: 9em;
   border-top-style: solid;
   border-bottom-style: solid;
 
@@ -67,7 +67,7 @@ h3, h4 {
 }
 
 .dashed_border {
-  height: 3em;
+  height: 9em;
   border-top-style: dashed;
   border-left-style: solid;
   border-right-style: dashed;
