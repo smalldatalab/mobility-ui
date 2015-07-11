@@ -194,9 +194,9 @@ function showSummary(username, date, device, token) {
 
             },
         error: function(data){
-            $("#walking-distance").html(0.00);
-            $("#away-from-home").html(0.00);
-            $("#active-time").html(0.00);
+            $("#walking-distance").html('No Data');
+            $("#away-from-home").html('No Data');
+            $("#active-time").html('No Data');
             var yesterday_date =  moment(today).subtract(1, 'days');
             showYesterdaySummary(username, yesterday_date, device, token);
         }
@@ -221,6 +221,12 @@ function showYesterdaySummary(username, date, device, token) {
 
 
             var distance = $("#walking-distance").html();
+            // if (distance == 'No Data') {
+            //     distance = 0;
+            // }
+            // else {
+            //     return
+            // }
             var distance_difference = Number(distance) - Number(yesterday_distance);
             var total_distance = Math.abs(distance_difference) + Number(distance);
 
@@ -322,6 +328,12 @@ function showYesterdaySummary(username, date, device, token) {
 
 
             var active = $("#active-time").html();
+            // if (active == 'No Data') {
+            //     active = 0;
+            // }
+            // else {
+            //     return
+            // }
             var active_difference = active - yesterday_active;
             var total_active = Math.abs(active_difference) + Number(active);
 
@@ -422,6 +434,13 @@ function showYesterdaySummary(username, date, device, token) {
 
 
             var away = $("#away-from-home").html();
+            console.log(away);
+            // if (away == 'No Data') {
+            //     away = 0;
+            // }
+            // else {
+            //     return
+            // }
             var away_difference = Number(away) - Number(yesterday_away);
             var total_away = Math.abs(away_difference) + Number(away);
 
