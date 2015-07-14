@@ -194,9 +194,9 @@ function showSummary(username, date, device, token) {
 
             },
         error: function(data){
-            $("#walking-distance").html(0.00);
-            $("#away-from-home").html(0.00);
-            $("#active-time").html(0.00);
+            $("#walking-distance").html('No Data');
+            $("#away-from-home").html('No Data');
+            $("#active-time").html('No Data');
             var yesterday_date =  moment(today).subtract(1, 'days');
             showYesterdaySummary(username, yesterday_date, device, token);
         }

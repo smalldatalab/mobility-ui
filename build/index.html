@@ -272,7 +272,6 @@
         $('#current-date').html(today.format('dddd, MMMM Do YYYY'));
 
         var token = url("#access_token");
-        // var token = 'd2a66346-f52e-45f5-9f2c-d3d695fb5aca';
 
         if(!token)
         {
@@ -290,11 +289,10 @@
                   iOS = true;
                 }
                 if (iOS) {
-                   device = 'ios';
+                  device = 'ios';
                 }else {
                   device = 'android';
                 }
-                alert(device);
                 var date = url("#date")? moment(url("#date")).toDate() : new Date();
                 var redraw = function(){
                     deletePreviousImg();
