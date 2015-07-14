@@ -272,6 +272,7 @@ title: Mobility-omh | Daily Data
                 }else {
                   device = 'android';
                 }
+                alert(device);
                 var date = url("#date")? moment(url("#date")).toDate() : new Date();
                 var redraw = function(){
                     deletePreviousImg();
