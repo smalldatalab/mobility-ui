@@ -3,13 +3,11 @@
 .top-area {
   background-color: #16A085;
   width: 100%;
-  height: 15em;
+  height: 25em;
 }
-.devices {
-  padding-top: 4em;
-}
+
 .date-area {
-  padding-top: 1em;
+  height: 2em;
 }
 
 #walking-distance {
@@ -38,6 +36,7 @@
 
 h3, h4 {
   font-weight: 100 !important;
+  font-size: 5em;
 }
 
 .location-info {
@@ -52,23 +51,60 @@ h3, h4 {
 
 .solid_border {
   /*text-align: center;*/
-  height: 1em;
-  /*border-top-style: solid;*/
-  /*border-bottom-style: solid;*/
-  /*color: #2c3e50;*/
-  /*font-size: 1em;*/
+  height: 9em;
+  border-top-style: solid;
+  border-bottom-style: solid;
+
+  /*position: absolute;*/
+  /*z-index: 5;*/
+
+  /*font-size: 1em;
   /*font-weight: bold;*/
-  width: 100%;
+  /*width: 30em;*/
+  clear: both;
+  /*width: 100%;*/
+  margin-top: -.2em;
+}
+
+.dashed_border {
+  height: 9em;
+  border-top-style: dashed;
+  border-left-style: solid;
+  border-right-style: dashed;
+  border-bottom-style: dashed;
+  /*position: absolute;*/
+  /*z-index: 1;*/
+  /*width: 70%;*/
+  clear: both;
+}
+
+.dashed-right {
+  border-right-style: dashed;
+  border-right-color: white;
+  /*width: 0%;*/
 }
 .hours-out-of-house-color {
+  color: #3C85DA;
+}
+
+.hours-out-background-color {
   background-color: #3C85DA;
 }
 
+
 .minutes-active-color {
+  color: #D36D6D;
+}
+
+.minutes-active-background-color {
   background-color: #D36D6D;
 }
 
 .miles-walked-color {
+  color: #E2D642;
+}
+
+.miles-walked-background-color {
   background-color: #E2D642;
 }
 
@@ -76,3 +112,50 @@ h3, h4 {
   padding-bottom: .5em;
 }
 
+.locations, .time {
+  font-size: 3em;
+}
+
+.title h1 {
+  font-weight: 120;
+  font-size: 4em;
+}
+
+
+#walking-distance, #active-time, #away-from-home {
+  font-size: 6em;
+}
+
+.data-icon {
+  height: 10em;
+}
+.data-difference {
+  font-weight: 100;
+  font-size: 4em;
+  padding-left: .2em;
+
+}
+
+.arrow {
+  height: 5em !important;
+  vertical-align: baseline;
+}
+
+.device-type {
+  font-size: 3em;
+}
+
+#previous-date, #next-date {
+  font-size: 3em;
+}
+
+#current-date {
+  font-size: 3em;
+  color: white;
+  padding-left: 2em;
+  padding-right: 2em;
+}
+
+.maps {
+  width: 100%;
+}
