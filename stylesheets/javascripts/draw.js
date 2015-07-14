@@ -224,7 +224,6 @@ function showYesterdaySummary(username, date, device, token) {
                 distance = 0;
             }
 
-            var distance = $("#walking-distance").html();
             var distance_difference = Number(distance) - Number(yesterday_distance);
             var total_distance = Math.abs(distance_difference) + Number(distance);
 
@@ -328,8 +327,6 @@ function showYesterdaySummary(username, date, device, token) {
                 active = 0;
             }
 
-
-            var active = $("#active-time").html();
             var active_difference = active - yesterday_active;
             var total_active = Math.abs(active_difference) + Number(active);
 
@@ -433,8 +430,6 @@ function showYesterdaySummary(username, date, device, token) {
                 away = 0;
             }
 
-
-            var away = $("#away-from-home").html();
             var away_difference = Number(away) - Number(yesterday_away);
             var total_away = Math.abs(away_difference) + Number(away);
 
