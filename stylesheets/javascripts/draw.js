@@ -171,14 +171,14 @@ function showSummary(username, date, device, token) {
             if (typeof distance != 'undefined') {
                 $("#walking-distance").html(distance);
             } else {
-                $("#walking-distance").html(0);
+                $("#walking-distance").html('No Data');
             }
 
             var active = data.body["active_time_in_seconds"];
             if (typeof active != 'undefined') {
                 $("#active-time").html((active/60).toFixed(2));
             } else {
-                $("#active-time").html(0);
+                $("#active-time").html('No Data');
             }
 
             var away = data.body["time_not_at_home_in_seconds"];
@@ -186,7 +186,7 @@ function showSummary(username, date, device, token) {
                 $("#away-from-home").html((away/3600).toFixed(2));
 
             } else {
-                $("#away-from-home").html(0);
+                $("#away-from-home").html('No Data');
             }
 
             var yesterday_date = moment(today).subtract(1, 'days');
@@ -219,6 +219,10 @@ function showYesterdaySummary(username, date, device, token) {
                 yesterday_distance = (data.body["walking_distance_in_km"]*0.621371192).toFixed(2);
             }
 
+            var distance = $("#walking-distance").html();
+            if (distance == 'No Data') {
+                distance = 0;
+            }
 
             var distance = $("#walking-distance").html();
             var distance_difference = Number(distance) - Number(yesterday_distance);
@@ -319,6 +323,10 @@ function showYesterdaySummary(username, date, device, token) {
             }else {
                 yesterday_active = (data.body["active_time_in_seconds"]/60).toFixed(2);
             }
+            var active = $("#active-time").html();
+            if (active === 'No Data') {
+                active = 0;
+            }
 
 
             var active = $("#active-time").html();
@@ -418,6 +426,11 @@ function showYesterdaySummary(username, date, device, token) {
                 yesterday_away = 0;
             }else {
                 yesterday_away = (data.body["time_not_at_home_in_seconds"] /3600).toFixed(2);
+            }
+            var away = $("#away-from-home").html();
+            console.log(away);
+            if (away === 'No Data') {
+                away = 0;
             }
 
 
