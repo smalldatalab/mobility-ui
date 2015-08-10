@@ -3,69 +3,52 @@
 function drawDate(username, date, device, token){
     $.ajax({
         type: 'GET',
-        url: dsu + "dataPoints/"+getDatapointId(username, date, device),
+        url: dsu + "dataPoints/" + getDatapointId(username, date, device),
         headers: {
             "Authorization": "Bearer " + token
         },
-        success : function(data) {
-            showLocation(data, device);
+        success : function(data, device) {
+            var location_events = [];
+            if(device == "android" || device == "ios") {
+                rows = data["body"]["episodes"].map(function (epi) {
+                    var state = epi["inferred-state"].toLocaleUpperCase();
+                    var start = new Date(epi["start"]);
+                    var end = new Date(epi["end"]);
+                    var long_lat = epi["location-samples"];
+
+                    if (state == "STILL") {
+                        var longitude_sum = 0;
+                        var latitude_sum = 0;
+                        long_lat.forEach(function(obj) {
+                            longitude_sum += obj['longitude'];
+                            latitude_sum += obj['latitude'];
+                        });
+                        return [state, start, end, latitude_sum / long_lat.length, longitude_sum / long_lat.length];
+                    }
+
+                });
+
+                rows.forEach(function(obj){
+                    if (typeof obj !== 'undefined') {
+                        location_events.push({
+                            id: moment(obj[1]).format().substring(0, 19),
+                            title: 'location',
+                            start: moment(obj[1]).format().substring(0, 19),
+                            end: moment(obj[2]).format().substring(0, 19),
+                            url: "https://maps.googleapis.com/maps/api/staticmap?center="+ obj[3] + "," + obj[4] + "&zoom=15&size=2000x1000&maptype=roadmap&markers=color:red%7Clabel:S%7C" + obj[3] + "," + obj[4] + "&markers=size:mid&key=AIzaSyC1GFrL26ugupKi80EQynafH6-uiLcgZDg"
+                        })
+                    }
+                });
+                console.log(location_events);
+
+            }
+            return location_events
+
         },
         error: function(data){
-            var myNode = document.getElementById("google-locations");
-            if (myNode.firstChild) {
-                myNode.removeChild(myNode.firstChild);
-            }
-            var no_data = document.createElement('div');
-            var no_data_text = document.createTextNode("No Data for Mapping!");
-            no_data.setAttribute('style', 'padding-top: 2em; padding-bottom: 2em;')
-
-            no_data.appendChild(no_data_text);
-            $("#google-locations").appendChild(no_data);
-
-            console.log('It is working!');
+            console.log('Data did not have any locations.')
         }
     });
-}
-
-function showLocation(data, device) {
-    if(device == "android" || device == "ios") {
-        rows = data["body"]["episodes"].map(function (epi) {
-            var state = epi["inferred-state"].toLocaleUpperCase();
-            var start = new Date(epi["start"]);
-            var end = new Date(epi["end"]);
-            var long_lat = epi["location-samples"];
-
-            if (state == "STILL") {
-                var longitude_sum = 0;
-                var latitude_sum = 0;
-                long_lat.forEach(function(obj) {
-                    longitude_sum += obj['longitude'];
-                    latitude_sum += obj['latitude'];
-                });
-                console.log(latitude_sum / long_lat.length);
-                console.log(longitude_sum / long_lat.length);
-                console.log(start);
-                console.log(end);
-                return [state, start, end, latitude_sum / long_lat.length, longitude_sum / long_lat.length];
-            }
-
-        });
-        console.log(rows);
-        rows.forEach(function(obj){
-            if (typeof obj !== 'undefined') {
-                drawLocationMaps(obj[3], obj[4], obj[1], obj[2]);
-                // console.log('defined!');
-
-            }
-        });
-    }
-}
-
-function deletePreviousImg() {
-    var myNode = document.getElementById("google-locations");
-    while (myNode.firstChild) {
-        myNode.removeChild(myNode.firstChild);
-    };
 }
 
 function deletePreviousBar() {
@@ -73,6 +56,11 @@ function deletePreviousBar() {
     var distanceNumber = document.getElementById("miles-difference");
     while (distanceNumber.firstChild) {
        distanceNumber.removeChild(distanceNumber.firstChild);
+    }
+
+    var trekNumber = document.getElementById("trek-difference");
+    while (trekNumber.firstChild) {
+       trekNumber.removeChild(trekNumber.firstChild);
     }
 
     var activeNumber = document.getElementById("active-difference");
@@ -86,77 +74,6 @@ function deletePreviousBar() {
     }
 }
 
-function drawLocationMaps(averg_lac, averg_long, start, end) {
-    var start_hours = start.getHours();
-    var end_hours = end.getHours();
-    var start_minutes = start.getMinutes();
-    var end_minutes = end.getMinutes();
-
-    $.ajax({
-        type: 'POST',
-        url: 'https://maps.googleapis.com/maps/api/geocode/json?latlng=' + averg_lac + ',' + averg_long + '&key=AIzaSyC1GFrL26ugupKi80EQynafH6-uiLcgZDg',
-        dataType: 'json',
-        success: function(data) {
-
-            if (data['results'].length > 0) {
-                var unit_div = document.createElement('div');
-                var info_div = document.createElement('div');
-                var location_div = document.createElement('div');
-                var location_p = document.createElement('p');
-
-                var neighborhood = data['results'][0]['formatted_address'];
-                var location_text = document.createTextNode(neighborhood);
-
-                location_p.appendChild(location_text);
-                location_div.appendChild(location_p);
-                info_div.appendChild(location_div);
-
-                location_p.className = 'locations';
-                location_div.className = 'col-xs-8 col-xs-offset-1';
-                info_div.className = 'row location-info';
-
-
-
-                var time_div = document.createElement('div');
-                var time_p = document.createElement('p');
-                var time_text = document.createTextNode(start_hours + ":" + start_minutes + "~" + end_hours + ":" + end_minutes);
-                var hr_line = document.createElement('hr');
-
-                time_p.appendChild(time_text);
-                time_div.appendChild(time_p);
-                info_div.appendChild(time_div);
-                unit_div.appendChild(hr_line);
-                unit_div.appendChild(info_div);
-                time_p.className = 'time';
-                time_div.className = 'col-xs-3 pull-right';
-
-
-                var map_div = document.createElement('div');
-                var img_div = document.createElement('img');
-                // img_div.src = "http://maps.googleapis.com/maps/api/staticmap?center=Brooklyn+Bridge,New+York,NY&zoom=14&size=512x512&maptype=roadmap&markers=color:blue%7Clabel:S%7C40.702147,-74.015794&markers=color:green%7Clabel:G%7C40.711614,-74.012318&markers=color:red%7Ccolor:red%7Clabel:C%7C40.718217,-73.998284&sensor=false&key=AIzaSyC1GFrL26ugupKi80EQynafH6-uiLcgZDg";
-
-                img_div.src = "https://maps.googleapis.com/maps/api/staticmap?center="+ averg_lac + "," + averg_long + "&zoom=15&size=2000x1000&maptype=roadmap&markers=color:red%7Clabel:S%7C" + averg_lac + "," + averg_long + "&markers=size:mid&key=AIzaSyC1GFrL26ugupKi80EQynafH6-uiLcgZDg";
-                img_div.setAttribute('style', 'width: 100%');
-                map_div.appendChild(img_div);
-                unit_div.appendChild(map_div);
-                unit_div.appendChild(hr_line);
-                map_div.className = 'maps';
-                unit_div.className = 'location-unit';
-
-                document.getElementById('google-locations').appendChild(unit_div);
-
-            }else {
-
-            }
-
-        },
-        error: function(data) {
-           console.log('Could not find it!');
-        }
-
-    });
-}
-
 function showSummary(username, date, device, token) {
     var today = moment(date).format('YYYY-MM-DD');
     $.ajax({
@@ -167,25 +84,66 @@ function showSummary(username, date, device, token) {
         },
         success: function(data) {
 
-            var distance = (data.body["walking_distance_in_km"]*0.621371192).toFixed(2);
+            var distance = (data.body["walking_distance_in_km"]*0.621371192).toFixed(1);
             if (typeof distance != 'undefined') {
-                $("#walking-distance").html(distance);
+                $("#walking-distance").data('value', distance);
+                if (distance < 2) {
+                    $("#walking-distance").html(distance + 'mile');
+                }
+                else {
+                    $("#walking-distance").html(distance + 'miles');
+                }
             } else {
+                $("#walking-distance").data('value', 'No Data');
                 $("#walking-distance").html('No Data');
+            }
+
+            var trek = (data.body["walking_distance_in_km"]*0.621371192).toFixed(1);
+            if (typeof trek != 'undefined') {
+                $("#trek-mile").data('value', trek);
+                if (trek < 2) {
+                    $("#trek-mile").html(trek + 'mile');
+                }
+                else {
+                    $("#trek-mile").html(trek + 'miles');
+                }
+            } else {
+                $("#trek-mile").data('value', 'No Data');
+                $("#trek-mile").html('No Data');
             }
 
             var active = data.body["active_time_in_seconds"];
             if (typeof active != 'undefined') {
-                $("#active-time").html((active/60).toFixed(2));
+                var active_data = (active/60).toFixed(0);
+                $("#active-time").data('value', active_data);
+                if (active_data < 60) {
+                    $("#active-time").html(active_data + 'min');
+                }
+                else {
+                    var active_minute = active_data % 60;
+                    var active_hour = Math.floor(active_data/60);
+                    $("#active-time").html(active_hour + 'hr' + active_minute + 'min');
+                }
             } else {
+                $("#active-time").data('value','No Data');
                 $("#active-time").html('No Data');
             }
 
             var away = data.body["time_not_at_home_in_seconds"];
             if (typeof away != 'undefined') {
-                $("#away-from-home").html((away/3600).toFixed(2));
+                var away_data = (away/60).toFixed(0);
+                $("#away-from-home").data('value', away_data);
+                if (away_data < 60) {
+                    $("#away-from-home").html(away_data + 'min');
+                }
+                else {
+                    var away_minute = away_data % 60;
+                    var away_hour = Math.floor(away_data/60);
+                    $("#away-from-home").html(away_hour + 'hr' + away_minute + 'min');
+                }
 
             } else {
+                $("#away-from-home").data('value', 'No Data');
                 $("#away-from-home").html('No Data');
             }
 
@@ -195,6 +153,7 @@ function showSummary(username, date, device, token) {
             },
         error: function(data){
             $("#walking-distance").html('No Data');
+            $("#trek-mile").html('No Data');
             $("#away-from-home").html('No Data');
             $("#active-time").html('No Data');
             var yesterday_date =  moment(today).subtract(1, 'days');
@@ -216,11 +175,11 @@ function showYesterdaySummary(username, date, device, token) {
             if (isNaN(data.body["walking_distance_in_km"])) {
                 yesterday_distance = 0;
             }else {
-                yesterday_distance = (data.body["walking_distance_in_km"]*0.621371192).toFixed(2);
+                yesterday_distance = (data.body["walking_distance_in_km"]*0.621371192).toFixed(1);
             }
 
 
-            var distance = $("#walking-distance").html();
+            var distance = $("#walking-distance").data('value');
             if (distance == 'No Data') {
                 distance = 0;
             }
@@ -241,11 +200,17 @@ function showYesterdaySummary(username, date, device, token) {
                 var arrow_up = document.createElement('img');
                 arrow_up.src = 'images/arrow_up.png';
                 arrow_up.className = 'arrow';
+                var differences_text;
+                if (distance_difference < 2) {
+                    differences_text = document.createTextNode(distance_difference.toFixed(1) + 'mile');
 
-                var differences_text = document.createTextNode(distance_difference.toFixed(2));
+                }else {
+                    differences_text = document.createTextNode(distance_difference.toFixed(1) + 'miles');
+                }
                 var differences_span = document.createElement('span');
                 differences_span.className = 'data-difference';
                 differences_span.appendChild(differences_text);
+
 
                 document.getElementById('miles-difference').appendChild(arrow_up);
                 document.getElementById('miles-difference').appendChild(differences_span);
@@ -254,7 +219,7 @@ function showYesterdaySummary(username, date, device, token) {
                 if (Number(distance_difference) == Number(distance)) {
                     div_2.className = 'solid_border miles-walked-color miles-walked-background-color';
                     div_2.setAttribute('style', 'width: 100%');
-                    div_3.setAttribute('style', 'border-right-style: solid');
+                    div_3.setAttribute('style', 'border-right-style: solid;');
                     div_1.className = "";
 
 
@@ -273,24 +238,33 @@ function showYesterdaySummary(username, date, device, token) {
                 var arrow_down = document.createElement('img');
                 arrow_down.src = 'images/arrow_down.png';
                 arrow_down.className = 'arrow';
-                var differences_text = document.createTextNode(Math.abs(distance_difference).toFixed(2));
+
+                var differences_text;
+                if (distance_difference < 2) {
+                    differences_text = document.createTextNode(Math.abs(distance_difference).toFixed(1) + 'mile');
+
+                }else {
+                    differences_text = document.createTextNode(Math.abs(distance_difference).toFixed(1) + 'miles');
+                }
+
                 var differences_span = document.createElement('span');
                 differences_span.className = 'data-difference';
                 differences_span.appendChild(differences_text);
+
 
                 document.getElementById('miles-difference').appendChild(arrow_down);
                 document.getElementById('miles-difference').appendChild(differences_span);
 
                 if (Math.abs(distance_difference) == Number(yesterday_distance)) {
                     div_2.className = "";
-                    div_3.setAttribute('style', 'border-right-style: dashed');
+                    div_3.setAttribute('style', 'border-right-style: dashed;');
                     div_1.className = "";
 
                 } else {
                     div_2.className = 'solid_border miles-walked-color miles-walked-background-color';
                     div_2.setAttribute('style', 'width:' + distance_percentage*100 + "%");
                     div_1.className = "";
-                    div_3.setAttribute('style', 'border-right-style: dashed');
+                    div_3.setAttribute('style', 'border-right-style: dashed;');
 
                 }
             } else {
@@ -304,8 +278,6 @@ function showYesterdaySummary(username, date, device, token) {
                     div_2.className = 'solid_border miles-walked-color miles-walked-background-color';
                     div_2.setAttribute('style', 'width: 100%');
                     div_1.className = "";
-
-                    div_3.setAttribute('style', 'border-right-style: dashed');
                 } else {
                     div_3.setAttribute('style', 'border-right-style: dashed;');
                     div_2.className = "";
@@ -316,15 +288,134 @@ function showYesterdaySummary(username, date, device, token) {
 
 
 
+
+
+            var yesterday_trek;
+            if (isNaN(data.body["walking_distance_in_km"])) {
+                yesterday_trek = 0;
+            }else {
+                yesterday_trek = (data.body["walking_distance_in_km"]*0.621371192).toFixed(1);
+            }
+
+
+            var trek = $("#trek-mile").data('value');
+            if (trek == 'No Data') {
+                trek = 0;
+            }
+            var trek_difference = Number(trek) - Number(yesterday_trek);
+            var total_trek = Math.abs(trek_difference) + Number(trek);
+
+            var trek_percentage = Number(trek) / Number(total_trek);
+            var yesterday_trek_percentage = Number(yesterday_trek)/Number(total_trek);
+
+            var trek_3 = document.getElementById('trek-3');
+            var trek_2 = document.getElementById('trek-2');
+            var trek_1 = document.getElementById('trek-1');
+
+
+            trek_3.className = "dashed_border trek-mile-color";
+
+            if (trek_difference > 0) {
+                var arrow_up = document.createElement('img');
+                arrow_up.src = 'images/arrow_up.png';
+                arrow_up.className = 'arrow';
+
+                var differences_text;
+                if (trek_difference < 2) {
+                    differences_text = document.createTextNode(trek_difference.toFixed(1) + 'mile');
+
+                }else {
+                    differences_text = document.createTextNode(trek_difference.toFixed(1) + 'miles');
+                }
+
+                var differences_span = document.createElement('span');
+                differences_span.className = 'data-difference';
+                differences_span.appendChild(differences_text);
+
+                document.getElementById('trek-difference').appendChild(arrow_up);
+                document.getElementById('trek-difference').appendChild(differences_span);
+
+
+                if (Number(trek_difference) == Number(trek)) {
+                    trek_2.className = 'solid_border trek-mile-color trek-mile-background-color';
+                    trek_2.setAttribute('style', 'width: 100%');
+                    trek_3.setAttribute('style', 'border-right-style: solid');
+                    trek_1.className = "";
+
+
+                } else {
+                    trek_2.className = 'solid_border trek-mile-color trek-mile-background-color';
+                    trek_2.setAttribute('style', 'width: 100%');
+
+                    trek_1.className = ('solid_border dashed-right');
+                    trek_1.setAttribute('style', 'width:' + yesterday_trek_percentage*100 + "%");
+
+                    trek_3.setAttribute('style', 'border-right-style: solid');
+
+
+                }
+            } else if (trek_difference < 0){
+                var arrow_down = document.createElement('img');
+                arrow_down.src = 'images/arrow_down.png';
+                arrow_down.className = 'arrow';
+
+                var differences_text;
+                if (trek_difference < 2) {
+                    differences_text = document.createTextNode(Math.abs(trek_difference).toFixed(1) + 'mile');
+
+                }else {
+                    differences_text = document.createTextNode(Math.abs(trek_difference).toFixed(1) + 'miles');
+                }
+
+                var differences_span = document.createElement('span');
+                differences_span.className = 'data-difference';
+                differences_span.appendChild(differences_text);
+
+                document.getElementById('trek-difference').appendChild(arrow_down);
+                document.getElementById('trek-difference').appendChild(differences_span);
+
+                if (Math.abs(trek_difference) == Number(yesterday_trek)) {
+                    trek_2.className = "";
+                    trek_3.setAttribute('style', 'border-right-style: dashed');
+                    trek_1.className = "";
+
+                } else {
+                    trek_2.className = 'solid_border trek-mile-color trek-mile-background-color';
+                    trek_2.setAttribute('style', 'width:' + trek_percentage*100 + "%");
+                    trek_1.className = "";
+                    trek_3.setAttribute('style', 'border-right-style: dashed');
+
+                }
+            } else {
+                var differences_text = document.createTextNode("No Change!");
+                var differences_span = document.createElement('span');
+                differences_span.className = 'data-difference';
+                differences_span.appendChild(differences_text);
+
+                document.getElementById('trek-difference').appendChild(differences_span);
+                if (Number(trek) != 0) {
+                    trek_2.className = 'solid_border trek-mile-color trek-mile-background-color';
+                    trek_2.setAttribute('style', 'width: 100%');
+                    trek_1.className = "";
+                } else {
+                    trek_3.setAttribute('style', 'border-right-style: dashed;');
+                    trek_2.className = "";
+                    trek_1.className = "";
+                }
+            }
+
+
+
+
             var yesterday_active;
             if (isNaN(data.body["active_time_in_seconds"])) {
                 yesterday_active = 0;
             }else {
-                yesterday_active = (data.body["active_time_in_seconds"]/60).toFixed(2);
+                yesterday_active = (data.body["active_time_in_seconds"]/60).toFixed(0);
             }
 
 
-            var active = $("#active-time").html();
+            var active = $("#active-time").data('value');
             if (active === 'No Data') {
                 active = 0;
             }
@@ -347,7 +438,14 @@ function showYesterdaySummary(username, date, device, token) {
                 arrow_up.className = 'arrow';
 
 
-                var differences_text = document.createTextNode(active_difference.toFixed(2));
+                var differences_text;
+                if (active_difference < 60) {
+                    differences_text = document.createTextNode(active_difference + 'min');
+                } else {
+                    var active_minute = active_difference % 60;
+                    var active_hour = Math.floor(active_difference/60);
+                    differences_text = document.createTextNode(active_hour + 'hr' + active_minute + 'min');
+                }
                 var differences_span = document.createElement('span');
                 differences_span.className = 'data-difference';
                 differences_span.appendChild(differences_text);
@@ -376,8 +474,16 @@ function showYesterdaySummary(username, date, device, token) {
                 var arrow_down = document.createElement('img');
                 arrow_down.src = 'images/arrow_down.png';
                 arrow_down.className = 'arrow';
+                var differences_text;
 
-                var differences_text = document.createTextNode(Math.abs(active_difference).toFixed(2));
+                if (Math.abs(active_difference) < 60) {
+                    differences_text = document.createTextNode(Math.abs(active_difference) + 'min');
+                } else {
+                    var active_minute = Math.abs(active_difference % 60);
+                    var active_hour = Math.abs(Math.floor(active_difference/60));
+                    differences_text = document.createTextNode(active_hour + 'hr' + active_minute + 'min');
+                }
+
                 var differences_span = document.createElement('span');
                 differences_span.className = 'data-difference';
                 differences_span.appendChild(differences_text);
@@ -409,7 +515,6 @@ function showYesterdaySummary(username, date, device, token) {
                     active_2.setAttribute('style', 'width: 100%');
                     active_1.className = "";
 
-                    active_3.setAttribute('style', 'border-right-style: dashed');
                 } else {
                     active_3.setAttribute('style', 'border-right-style: dashed;');
                     active_2.className = "";
@@ -423,11 +528,11 @@ function showYesterdaySummary(username, date, device, token) {
             if (isNaN(data.body["time_not_at_home_in_seconds"])) {
                 yesterday_away = 0;
             }else {
-                yesterday_away = (data.body["time_not_at_home_in_seconds"] /3600).toFixed(2);
+                yesterday_away = (data.body["time_not_at_home_in_seconds"] /60).toFixed(0);
             }
 
 
-            var away = $("#away-from-home").html();
+            var away = $("#away-from-home").data('value');
             console.log(away);
             if (away === 'No Data') {
                 away = 0;
@@ -452,7 +557,17 @@ function showYesterdaySummary(username, date, device, token) {
                 arrow_up.src = 'images/arrow_up.png';
                 arrow_up.className = 'arrow';
 
-                var differences_text = document.createTextNode(away_difference.toFixed(2));
+                var differences_text = document.createTextNode(away_difference.toFixed(0));
+
+
+                var differences_text;
+                if (away_difference < 60) {
+                    differences_text = document.createTextNode(away_difference + 'min');
+                } else {
+                    var away_minute = away_difference % 60;
+                    var away_hour = Math.floor(away_difference/60);
+                    differences_text = document.createTextNode(away_hour + 'hr' + away_minute + 'min');
+                }
                 var differences_span = document.createElement('span');
                 differences_span.className = 'data-difference';
                 differences_span.appendChild(differences_text);
@@ -484,7 +599,14 @@ function showYesterdaySummary(username, date, device, token) {
                 arrow_down.src = 'images/arrow_down.png';
                 arrow_down.className = 'arrow';
 
-                var differences_text = document.createTextNode(Math.abs(away_difference).toFixed(2));
+                var differences_text;
+                if (Math.abs(away_difference) < 60) {
+                    differences_text = document.createTextNode(Math.abs(away_difference) + 'min');
+                } else {
+                    var away_minute = Math.abs(away_difference % 60);
+                    var away_hour = Math.abs(Math.floor(away_difference/60));
+                    differences_text = document.createTextNode(away_hour + 'hr' + away_minute + 'min');
+                }
                 var differences_span = document.createElement('span');
                 differences_span.className = 'data-difference';
                 differences_span.appendChild(differences_text);
@@ -516,7 +638,6 @@ function showYesterdaySummary(username, date, device, token) {
                     away_2.setAttribute('style', 'width: 100%');
                     away_1.className = "";
 
-                    away_3.setAttribute('style', 'border-right-style: dashed');
                 } else {
                     away_3.setAttribute('style', 'border-right-style: dashed;');
                     away_2.className = "";
@@ -525,41 +646,41 @@ function showYesterdaySummary(username, date, device, token) {
             }
         },
         error: function(data) {
-            var distance = $("#walking-distance").html();
-            var yesterday_distance = 0.00;
-            var div_3 = document.getElementById('miles-3');
-            var div_2 = document.getElementById('miles-2');
-            var div_1 = document.getElementById('miles-1');
+            // var distance = $("#walking-distance").html();
+            // var yesterday_distance = 0.00;
+            // var div_3 = document.getElementById('miles-3');
+            // var div_2 = document.getElementById('miles-2');
+            // var div_1 = document.getElementById('miles-1');
 
-            if (Number(distance) == 0) {
-                var differences_text = document.createTextNode("No Change!");
-                var differences_span = document.createElement('span');
-                differences_span.className = 'data-difference';
-                differences_span.appendChild(differences_text);
-                document.getElementById('miles-difference').appendChild(differences_span);
+            // if (Number(distance) == 0) {
+            //     var differences_text = document.createTextNode("No Change!");
+            //     var differences_span = document.createElement('span');
+            //     differences_span.className = 'data-difference';
+            //     differences_span.appendChild(differences_text);
+            //     document.getElementById('miles-difference').appendChild(differences_span);
 
-                div_3.setAttribute('style', 'border-right-style: dashed;');
-                div_2.className = "";
-                div_1.className = "";
+            //     div_3.setAttribute('style', 'border-right-style: dashed;');
+            //     div_2.className = "";
+            //     div_1.className = "";
 
-            } else {
-                var differences_text = document.createTextNode(distance);
-                var differences_span = document.createElement('span');
-                differences_span.className = 'data-difference';
-                differences_span.appendChild(differences_text);
+            // } else {
+            //     var differences_text = document.createTextNode(distance);
+            //     var differences_span = document.createElement('span');
+            //     differences_span.className = 'data-difference';
+            //     differences_span.appendChild(differences_text);
 
-                var arrow_up = document.createElement('img');
-                arrow_up.src = 'images/arrow_up.png';
-                arrow_up.className = 'arrow';
+            //     var arrow_up = document.createElement('img');
+            //     arrow_up.src = 'images/arrow_up.png';
+            //     arrow_up.className = 'arrow';
 
-                document.getElementById('miles-difference').appendChild(arrow_up);
-                document.getElementById('miles-difference').appendChild(differences_span);
+            //     document.getElementById('miles-difference').appendChild(arrow_up);
+            //     document.getElementById('miles-difference').appendChild(differences_span);
 
-                div_2.className = 'solid_border miles-walked-color miles-walked-background-color';
-                div_2.setAttribute('style', 'width: 100%');
-                div_3.setAttribute('style', 'border-right-style: solid');
-                div_1.className = "";
-            }
+            //     div_2.className = 'solid_border miles-walked-color miles-walked-background-color';
+            //     div_2.setAttribute('style', 'width: 100%');
+            //     div_3.setAttribute('style', 'border-right-style: solid');
+            //     div_1.className = "";
+            // }
 
 
 
@@ -641,14 +762,3 @@ function showYesterdaySummary(username, date, device, token) {
         }
     });
 }
-
-
-
-
-
-
-
-
-
-
-

@@ -10,18 +10,6 @@
   height: 2em;
 }
 
-#walking-distance {
-  font-size: 1.6em;
-}
-
-#active-time {
-  font-size: 1.6em;
-}
-
-#away-from-home {
-  font-size: 1.6em;
-}
-
 .map-title {
   background-color:#16A085;
   padding-top: 0.1em;
@@ -29,7 +17,7 @@
 
 }
 
-.home-data, .active-data, .walking-data {
+.home-data, .active-data, .walking-data, .trek-data {
   padding-top: 2em;
   padding-bottom: 2em;
 }
@@ -46,24 +34,13 @@ h3, h4 {
 
 .row {
   margin-right:0 !important;
-  margin-left: -3em !important;
+  margin-left: 0 !important;
 }
 
 .solid_border {
-  /*text-align: center;*/
   height: 9em;
-  border-top-style: solid;
-  border-bottom-style: solid;
-
-  /*position: absolute;*/
-  /*z-index: 5;*/
-
-  /*font-size: 1em;
-  /*font-weight: bold;*/
-  /*width: 30em;*/
   clear: both;
-  /*width: 100%;*/
-  margin-top: -.2em;
+  margin-top: -.23em;
 }
 
 .dashed_border {
@@ -72,17 +49,15 @@ h3, h4 {
   border-left-style: solid;
   border-right-style: dashed;
   border-bottom-style: dashed;
-  /*position: absolute;*/
-  /*z-index: 1;*/
-  /*width: 70%;*/
   clear: both;
 }
 
 .dashed-right {
   border-right-style: dashed;
+  border-right-width: .5em;
   border-right-color: white;
-  /*width: 0%;*/
 }
+
 .hours-out-of-house-color {
   color: #3C85DA;
 }
@@ -91,6 +66,13 @@ h3, h4 {
   background-color: #3C85DA;
 }
 
+.trek-mile-background-color {
+  background-color: #8751B6;
+}
+
+.trek-mile-color {
+  color: #8751B6;
+}
 
 .minutes-active-color {
   color: #D36D6D;
@@ -122,7 +104,7 @@ h3, h4 {
 }
 
 
-#walking-distance, #active-time, #away-from-home {
+#walking-distance, #active-time, #away-from-home, #trek-mile {
   font-size: 6em;
 }
 
@@ -152,10 +134,31 @@ h3, h4 {
 #current-date {
   font-size: 3em;
   color: white;
-  padding-left: 2em;
-  padding-right: 2em;
+  padding-left: 1em;
+  padding-right: 1em;
 }
 
 .maps {
   width: 100%;
 }
+
+#calendar {
+  overflow: hidden;
+}
+/*.today_test {
+  background-size: cover;
+  background: url('https://maps.googleapis.com/maps/api/staticmap?center=Brooklyn+Bridge,New+York,NY&zoom=13&size=600x300&maptype=roadmap
+&markers=color:blue%7Clabel:S%7C40.702147,-74.015794&markers=color:green%7Clabel:G%7C40.711614,-74.012318
+&markers=color:red%7Clabel:C%7C40.718217,-73.998284') !important;
+}*/
+
+.today_test {
+
+}
+
+
+/* for the daily view */
+/*.fc-event, .fc-bg {
+  background: none !important;
+
+}*/
