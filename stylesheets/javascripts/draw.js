@@ -38,29 +38,7 @@ function drawDate(username, date, device, token){
             });
 
             console.log(location_events);
-            $('#calendar').fullCalendar({
-                  header: '',
-                  defaultView: 'agendaDay',
-                  slotDuration: '00:05:00',
-                  // axisFormat: 'h',
-                  // timezone: 'UTC',
-                  // minTime: moment(location_events[0]['start']).subtract(30, 'minute'),
-                  // maxTime: moment(location_events[location_events.length-1]['end']).add(30, 'minute'),
-                  allDaySlot: false,
-                  slotEventOverlap: false,
-                  scrollTime: '10:00:00',
-                  // timeFormat: 'h(:mm)',
-                  // snapDuration: '00:01:00',
-                  // theme: true,
-                  // events: location_events,
-                  eventAfterRender: function(event, element, view) {
-                    $(element).css("background-image", 'url(' + event.url + ')');
-                    $(element).css("background-size", 'cover');
-                    $(element).css("width", '90%');
-                    $(element).css("margin-left", '5%');
-                    $(element).addClass('img-responsive');
-                  },
-            });
+
             $('#calendar').fullCalendar('addEventSource', location_events);
             console.log('fullCalendar refreshed?');
             // }
