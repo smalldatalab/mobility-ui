@@ -272,11 +272,11 @@ title: Mobility-omh | Daily Data
 <script type="text/javascript">
     $(document).ready(function() {
       var today = moment();
-      // console.log(today);
       $('#current-date').html(today.format('dddd, MMMM Do YYYY'));
 
-      var token = url("#access_token");
-      // 'b8ceebb7-0ccd-4df8-8e37-33ce80ef2ae2'
+      var token = '8eee2800-dbb8-4ca5-b2df-c9d32df40bc4';
+      // url("#access_token");
+
 
       if(!token)
       {
@@ -288,23 +288,24 @@ title: Mobility-omh | Daily Data
           .done(function(data) {
               console.log("Get the token!");
               var username = data["user_name"];
-              var device;
-              var iOS = false,
-                p = navigator.platform;
-              if (p === 'iPad' || p === 'iPhone' || p === 'iPod') {
-                iOS = true;
-              }
-              if (iOS) {
-                 device = 'ios';
-              }else {
-                device = 'android';
-              }
-              // var device = 'android';
+              // var device;
+              // var iOS = false,
+              //   p = navigator.platform;
+              // if (p === 'iPad' || p === 'iPhone' || p === 'iPod') {
+              //   iOS = true;
+              // }
+              // if (iOS) {
+              //    device = 'ios';
+              // }else {
+              //   device = 'android';
+              // }
+              var device = 'android';
               var date = url("#date")? moment(url("#date")).toDate() : new Date();
-              var location_events = [];
-              var test;
               var redraw = function(){
-                  // drawDate(username, moment(date).format('YYYY-MM-DD'), device, token);
+                  drawDate(username, moment(date).format('YYYY-MM-DD'), device, token);
+                  console.log('Here!!!');
+                  $('#calendar').fullCalendar("refetchEvents");
+                   console.log('What!');
                   deletePreviousBar();
                   showSummary(username, date, device, token);
               };
@@ -314,8 +315,9 @@ title: Mobility-omh | Daily Data
                   today = moment(today).add(1, 'days');
                   date = today;
                   $('#current-date').html(today.format('dddd, MMMM Do YYYY'));
-                  redraw();
                   $('#calendar').fullCalendar('next');
+                  redraw();
+
               });
 
               $('#previous-date').click(function(){
@@ -323,42 +325,11 @@ title: Mobility-omh | Daily Data
                   today = moment(today).subtract(1, 'days');
                   $('#current-date').html(today.format('dddd, MMMM Do YYYY'));
                   date = today;
-                  redraw();
                   $('#calendar').fullCalendar('prev');
+                  redraw();
+
               });
 
-              // $('#current-date').click(function(){
-              //     today = moment();
-              //     $('#current-date').html(today.format('dddd, MMMM Do YYYY'));
-              //     date = today;
-              //     redraw();
-              // });
-
-              $('#calendar').fullCalendar({
-                  header: '',
-                  // defaultDate: '2015-08-03',
-                  defaultView: 'agendaDay',
-                  // timezone: 'UTC',
-                  allDaySlot: false,
-                  slotEventOverlap: false,
-                  // theme: true,
-                  events: [
-                      {
-                        id: '2015-08-10T10:00:00',
-                        title: 'Hunter, NY',
-                        start: '2015-08-10T10:00:00',
-                        end:'2015-08-10T12:30:00',
-                        url: 'http://tech.cornell.edu/uploads/page_headers/_full/all_background_images_copy.jpg'
-                      }
-                  ],
-                  // eventRender: function() {
-                  //   test = drawDate(username, moment(date).format('YYYY-MM-DD'), device, token);
-                  // },
-                  eventAfterRender: function(event, element, view) {
-                    $(element).attr("id", "event_id_" + event.id);
-                    $(element).css("background-image", 'url(' + event.url + ')');
-                  }
-              });
           })
           .fail(function() {
               window.location.href = dsu + "oauth/authorize?client_id=mobility_visualization&response_type=token";

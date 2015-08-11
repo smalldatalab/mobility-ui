@@ -8,42 +8,60 @@ function drawDate(username, date, device, token){
             "Authorization": "Bearer " + token
         },
         success : function(data, device) {
+            // if(device == "android" || device == "ios") {
             var location_events = [];
-            if(device == "android" || device == "ios") {
-                rows = data["body"]["episodes"].map(function (epi) {
-                    var state = epi["inferred-state"].toLocaleUpperCase();
-                    var start = new Date(epi["start"]);
-                    var end = new Date(epi["end"]);
-                    var long_lat = epi["location-samples"];
+            rows = data["body"]["episodes"].map(function (epi) {
+                var state = epi["inferred-state"].toLocaleUpperCase();
+                var start = new Date(epi["start"]);
+                var end = new Date(epi["end"]);
+                var long_lat = epi["location-samples"];
 
-                    if (state == "STILL") {
-                        var longitude_sum = 0;
-                        var latitude_sum = 0;
-                        long_lat.forEach(function(obj) {
-                            longitude_sum += obj['longitude'];
-                            latitude_sum += obj['latitude'];
-                        });
-                        return [state, start, end, latitude_sum / long_lat.length, longitude_sum / long_lat.length];
-                    }
+                if (state == "STILL") {
+                    var longitude_sum = 0;
+                    var latitude_sum = 0;
+                    long_lat.forEach(function(obj) {
+                        longitude_sum += obj['longitude'];
+                        latitude_sum += obj['latitude'];
+                    });
+                    return [state, start, end, latitude_sum / long_lat.length, longitude_sum / long_lat.length];
+                }
+            });
+            rows.forEach(function(obj){
+                if (typeof obj !== 'undefined') {
+                    location_events.push({
+                        title: 'location',
+                        start: moment(obj[1]).format().substring(0, 19),
+                        end: moment(obj[2]).format().substring(0, 19)
+                        // url: "https://maps.googleapis.com/maps/api/staticmap?center="+ obj[3] + "," + obj[4] + "&zoom=15&size=1000x1000&maptype=roadmap&markers=color:red%7Clabel:S%7C" + obj[3] + "," + obj[4] + "&markers=size:mid&key=AIzaSyC1GFrL26ugupKi80EQynafH6-uiLcgZDg"
+                    })
+                }
+            });
 
-                });
-
-                rows.forEach(function(obj){
-                    if (typeof obj !== 'undefined') {
-                        location_events.push({
-                            id: moment(obj[1]).format().substring(0, 19),
-                            title: 'location',
-                            start: moment(obj[1]).format().substring(0, 19),
-                            end: moment(obj[2]).format().substring(0, 19),
-                            url: "https://maps.googleapis.com/maps/api/staticmap?center="+ obj[3] + "," + obj[4] + "&zoom=15&size=2000x1000&maptype=roadmap&markers=color:red%7Clabel:S%7C" + obj[3] + "," + obj[4] + "&markers=size:mid&key=AIzaSyC1GFrL26ugupKi80EQynafH6-uiLcgZDg"
-                        })
-                    }
-                });
-                console.log(location_events);
-
-            }
-            return location_events
-
+            console.log(location_events);
+            $('#calendar').fullCalendar({
+                  header: '',
+                  defaultView: 'agendaDay',
+                  slotDuration: '00:05:00',
+                  // axisFormat: 'h',
+                  // timezone: 'UTC',
+                  // minTime: moment(location_events[0]['start']).subtract(30, 'minute'),
+                  // maxTime: moment(location_events[location_events.length-1]['end']).add(30, 'minute'),
+                  allDaySlot: false,
+                  slotEventOverlap: false,
+                  scrollTime: '10:00:00',
+                  // timeFormat: 'h(:mm)',
+                  // snapDuration: '00:01:00',
+                  // theme: true,
+                  // events: location_events,
+                  eventAfterRender: function(event, element, view) {
+                    $(element).css("background-image", 'url(' + event.url + ')');
+                    $(element).css("background-size", 'cover');
+                    $(element).addClass('img-responsive');
+                  },
+            });
+            $('#calendar').fullCalendar('addEventSource', location_events);
+            console.log('fullCalendar refreshed?');
+            // }
         },
         error: function(data){
             console.log('Data did not have any locations.')
@@ -98,7 +116,7 @@ function showSummary(username, date, device, token) {
                 $("#walking-distance").html('No Data');
             }
 
-            var trek = (data.body["walking_distance_in_km"]*0.621371192).toFixed(1);
+            var trek = (data.body["longest-trek-in-km"]*0.621371192).toFixed(1);
             if (typeof trek != 'undefined') {
                 $("#trek-mile").data('value', trek);
                 if (trek < 2) {
@@ -291,10 +309,10 @@ function showYesterdaySummary(username, date, device, token) {
 
 
             var yesterday_trek;
-            if (isNaN(data.body["walking_distance_in_km"])) {
+            if (isNaN(data.body["longest-trek-in-km"])) {
                 yesterday_trek = 0;
             }else {
-                yesterday_trek = (data.body["walking_distance_in_km"]*0.621371192).toFixed(1);
+                yesterday_trek = (data.body["longest-trek-in-km"]*0.621371192).toFixed(1);
             }
 
 
