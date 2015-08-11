@@ -31,8 +31,8 @@ function drawDate(username, date, device, token){
                     location_events.push({
                         title: 'location',
                         start: moment(obj[1]).format().substring(0, 19),
-                        end: moment(obj[2]).format().substring(0, 19)
-                        // url: "https://maps.googleapis.com/maps/api/staticmap?center="+ obj[3] + "," + obj[4] + "&zoom=15&size=1000x1000&maptype=roadmap&markers=color:red%7Clabel:S%7C" + obj[3] + "," + obj[4] + "&markers=size:mid&key=AIzaSyC1GFrL26ugupKi80EQynafH6-uiLcgZDg"
+                        end: moment(obj[2]).format().substring(0, 19),
+                        url: "https://maps.googleapis.com/maps/api/staticmap?center="+ obj[3] + "," + obj[4] + "&zoom=15&size=1000x1000&maptype=roadmap&markers=color:red%7Clabel:S%7C" + obj[3] + "," + obj[4] + "&markers=size:mid&key=AIzaSyC1GFrL26ugupKi80EQynafH6-uiLcgZDg"
                     })
                 }
             });
@@ -56,6 +56,8 @@ function drawDate(username, date, device, token){
                   eventAfterRender: function(event, element, view) {
                     $(element).css("background-image", 'url(' + event.url + ')');
                     $(element).css("background-size", 'cover');
+                    $(element).css("width", '90%');
+                    $(element).css("margin-left", '5%');
                     $(element).addClass('img-responsive');
                   },
             });
@@ -527,7 +529,7 @@ function showYesterdaySummary(username, date, device, token) {
                 differences_span.className = 'data-difference';
                 differences_span.appendChild(differences_text);
 
-                document.getElementById('active-difference').appendChild(difference_span);
+                document.getElementById('active-difference').appendChild(differences_span);
                 if (Number(active) != 0) {
                     active_2.className = 'solid_border minutes-active-color minutes-active-background-color';
                     active_2.setAttribute('style', 'width: 100%');
