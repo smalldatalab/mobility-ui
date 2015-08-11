@@ -10,12 +10,12 @@
     <title>Mobility-omh | Daily Data</title>
 
     <!-- Latest compiled and minified JavaScript -->
-    <script type="text/javascript" src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
-    <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/js-url/1.8.4/url.js"></script>
-    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="http://momentjs.com/downloads/moment.js"></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/js-url/1.8.4/url.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="https://momentjs.com/downloads/moment.js"></script>
     <script type="text/javascript" src="www.google.com/jsapi"></script>
-    <script src="http://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js" charset="utf-8"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js" charset="utf-8"></script>
 
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
@@ -297,8 +297,9 @@
       var today = moment();
       $('#current-date').html(today.format('dddd, MMMM Do YYYY'));
 
-      var token = '8eee2800-dbb8-4ca5-b2df-c9d32df40bc4';
-      // url("#access_token");
+      var token = url("#access_token");
+      // '8eee2800-dbb8-4ca5-b2df-c9d32df40bc4';
+      //
 
 
       if(!token)
@@ -311,18 +312,18 @@
           .done(function(data) {
               console.log("Get the token!");
               var username = data["user_name"];
-              // var device;
-              // var iOS = false,
-              //   p = navigator.platform;
-              // if (p === 'iPad' || p === 'iPhone' || p === 'iPod') {
-              //   iOS = true;
-              // }
-              // if (iOS) {
-              //    device = 'ios';
-              // }else {
-              //   device = 'android';
-              // }
-              var device = 'android';
+              var device;
+              var iOS = false,
+                p = navigator.platform;
+              if (p === 'iPad' || p === 'iPhone' || p === 'iPod') {
+                iOS = true;
+              }
+              if (iOS) {
+                 device = 'ios';
+              }else {
+                device = 'android';
+              }
+              // var device = 'android';
               var date = url("#date")? moment(url("#date")).toDate() : new Date();
               var redraw = function(){
                   drawDate(username, moment(date).format('YYYY-MM-DD'), device, token);
