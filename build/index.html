@@ -10,18 +10,17 @@
     <title>Mobility-omh | Daily Data</title>
 
     <!-- Latest compiled and minified JavaScript -->
-    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <link href="/stylesheets/normalize.css" rel="stylesheet" type="text/css" /><link href="/stylesheets/all.css" rel="stylesheet" type="text/css" /><link href="/stylesheets/fullcalendar.css" rel="stylesheet" type="text/css" />
+    <script src="/javascripts/jquery.min.js" type="text/javascript"></script><script src="/javascripts/all.js" type="text/javascript"></script><script src="/javascripts/draw.js" type="text/javascript"></script><script src="/javascripts/dsu.js" type="text/javascript"></script><script src="/javascripts/fullcalendar.js" type="text/javascript"></script><script src="/javascripts/fullcalendar_implementation.js" type="text/javascript"></script><script src="/javascripts/jquery.min.js" type="text/javascript"></script>
+
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/js-url/1.8.4/url.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="https://momentjs.com/downloads/moment.js"></script>
     <script type="text/javascript" src="www.google.com/jsapi"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js" charset="utf-8"></script>
 
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 
-    <link href="/stylesheets/normalize.css" rel="stylesheet" type="text/css" /><link href="/stylesheets/all.css" rel="stylesheet" type="text/css" /><link href="/stylesheets/fullcalendar.css" rel="stylesheet" type="text/css" />
-    <script src="/javascripts/all.js" type="text/javascript"></script><script src="/javascripts/draw.js" type="text/javascript"></script><script src="/javascripts/dsu.js" type="text/javascript"></script><script src="/javascripts/fullcalendar.js" type="text/javascript"></script><script src="/javascripts/fullcalendar_implementation.js" type="text/javascript"></script>
   </head>
 
   <body class="index">
@@ -327,9 +326,8 @@
               var date = url("#date")? moment(url("#date")).toDate() : new Date();
               var redraw = function(){
                   drawDate(username, moment(date).format('YYYY-MM-DD'), device, token);
-                  console.log('Here!!!');
-                  $('#calendar').fullCalendar("refetchEvents");
-                   console.log('What!');
+                  // console.log('Here!!!');
+                  // $('#calendar').fullCalendar("refetchEvents");
                   deletePreviousBar();
                   showSummary(username, date, device, token);
               };

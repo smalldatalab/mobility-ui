@@ -304,9 +304,8 @@ title: Mobility-omh | Daily Data
               var date = url("#date")? moment(url("#date")).toDate() : new Date();
               var redraw = function(){
                   drawDate(username, moment(date).format('YYYY-MM-DD'), device, token);
-                  console.log('Here!!!');
-                  $('#calendar').fullCalendar("refetchEvents");
-                   console.log('What!');
+                  // console.log('Here!!!');
+                  // $('#calendar').fullCalendar("refetchEvents");
                   deletePreviousBar();
                   showSummary(username, date, device, token);
               };
