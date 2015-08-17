@@ -1,0 +1,163 @@
+@charset "utf-8";
+
+.top-area {
+  background-color: #16A085;
+  width: 100%;
+  height: 25em;
+}
+
+.date-area {
+  height: 2em;
+}
+
+.map-title {
+  background-color:#16A085;
+  padding-top: 0.1em;
+  padding-bottom: 0.1em;
+
+}
+
+.home-data, .active-data, .walking-data, .trek-data {
+  padding-top: 2em;
+  padding-bottom: 2em;
+}
+
+h3, h4 {
+  font-weight: 100 !important;
+  font-size: 5em;
+}
+
+.location-info {
+  padding-top: 2em;
+  padding-bottom: 2em;
+}
+
+.row {
+  margin-right:0 !important;
+  margin-left: 0 !important;
+}
+
+.solid_border {
+  height: 9em;
+  clear: both;
+  margin-top: -.23em;
+}
+
+.dashed_border {
+  height: 9em;
+  border-top-style: dashed;
+  border-left-style: solid;
+  border-right-style: dashed;
+  border-bottom-style: dashed;
+  clear: both;
+}
+
+.dashed-right {
+  border-right-style: dashed;
+  border-right-width: .5em;
+  border-right-color: white;
+}
+
+.hours-out-of-house-color {
+  color: #3C85DA;
+}
+
+.hours-out-background-color {
+  background-color: #3C85DA;
+}
+
+.trek-mile-background-color {
+  background-color: #8751B6;
+}
+
+.trek-mile-color {
+  color: #8751B6;
+}
+
+.minutes-active-color {
+  color: #D36D6D;
+}
+
+.minutes-active-background-color {
+  background-color: #D36D6D;
+}
+
+.miles-walked-color {
+  color: #E2D642;
+}
+
+.miles-walked-background-color {
+  background-color: #E2D642;
+}
+
+.data-bar {
+  padding-bottom: .5em;
+}
+
+.locations, .time {
+  font-size: 3em;
+}
+
+.title h1 {
+  font-weight: 120;
+  font-size: 4em;
+}
+
+
+#walking-distance, #active-time, #away-from-home, #trek-mile {
+  font-size: 6em;
+}
+
+.data-icon {
+  height: 10em;
+}
+.data-difference {
+  font-weight: 100;
+  font-size: 4em;
+  padding-left: .2em;
+
+}
+
+.arrow {
+  height: 5em !important;
+  vertical-align: baseline;
+}
+
+.device-type {
+  font-size: 3em;
+}
+
+#previous-date, #next-date {
+  font-size: 3em;
+}
+
+#current-date {
+  font-size: 3em;
+  color: white;
+  padding-left: 1em;
+  padding-right: 1em;
+}
+
+.maps {
+  width: 100%;
+}
+
+#calendar {
+  overflow: hidden;
+}
+/*.today_test {
+  background-size: cover;
+  background: url('https://maps.googleapis.com/maps/api/staticmap?center=Brooklyn+Bridge,New+York,NY&zoom=13&size=600x300&maptype=roadmap
+&markers=color:blue%7Clabel:S%7C40.702147,-74.015794&markers=color:green%7Clabel:G%7C40.711614,-74.012318
+&markers=color:red%7Clabel:C%7C40.718217,-73.998284') !important;
+}*/
+
+.today_test {
+}
+
+
+/* for the daily view */
+/*.fc-event, .fc-bg {
+  background: none !important;
+
+}*/
