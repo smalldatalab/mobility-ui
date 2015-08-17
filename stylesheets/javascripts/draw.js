@@ -1,5 +1,4 @@
 // google.load("visualization", "1", {packages:["timeline", "map"]});
-
 function drawDate(username, date, device, token){
     $.ajax({
         type: 'GET',
@@ -8,7 +7,6 @@ function drawDate(username, date, device, token){
             "Authorization": "Bearer " + token
         },
         success : function(data, device) {
-            // if(device == "android" || device == "ios") {
             var location_events = [];
             rows = data["body"]["episodes"].map(function (epi) {
                 var state = epi["inferred-state"].toLocaleUpperCase();
@@ -28,12 +26,17 @@ function drawDate(username, date, device, token){
             });
             rows.forEach(function(obj){
                 if (typeof obj !== 'undefined') {
-                    location_events.push({
-                        title: 'location',
-                        start: moment(obj[1]).format().substring(0, 19),
-                        end: moment(obj[2]).format().substring(0, 19),
-                        url: "https://maps.googleapis.com/maps/api/staticmap?center="+ obj[3] + "," + obj[4] + "&zoom=15&size=1000x1000&maptype=roadmap&markers=color:red%7Clabel:S%7C" + obj[3] + "," + obj[4] + "&markers=size:mid&key=AIzaSyC1GFrL26ugupKi80EQynafH6-uiLcgZDg"
+                    var time_differences = moment(obj[2]).diff(moment(obj[1]),'minutes');
+                    console.log(time_differences);
+                    if (time_differences >= 30) {
+                        location_events.push({
+                            title: 'location',
+                            start: moment(obj[1]).format().substring(0, 19),
+                            end: moment(obj[2]).format().substring(0, 19),
+                            url: "https://maps.googleapis.com/maps/api/staticmap?center="+ obj[3] + "," + obj[4] + "&zoom=15&size=1000x" + time_differences + "&maptype=roadmap&markers=color:red%7Clabel:S%7C" + obj[3] + "," + obj[4] + "&markers=size:mid&key=AIzaSyC1GFrL26ugupKi80EQynafH6-uiLcgZDg"
                     })
+
+                    }
                 }
             });
 
@@ -41,7 +44,6 @@ function drawDate(username, date, device, token){
 
             $('#calendar').fullCalendar('addEventSource', location_events);
             console.log('fullCalendar refreshed?');
-            // }
         },
         error: function(data){
             console.log('Data did not have any locations.')
