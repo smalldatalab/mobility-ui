@@ -297,11 +297,9 @@
       var today = moment();
       $('#current-date').html(today.format('dddd, MMMM Do YYYY'));
 
-      var token = '8eee2800-dbb8-4ca5-b2df-c9d32df40bc4';
-      // url("#access_token");
+      var token = url("#access_token");
+      // 'f637d3ea-4cdc-4560-9325-52bbea8b8aad';
 
-      // '8eee2800-dbb8-4ca5-b2df-c9d32df40bc4';
-      //
 
 
       if(!token)
@@ -314,18 +312,18 @@
           .done(function(data) {
               console.log("Get the token!");
               var username = data["user_name"];
-              // var device;
-              // var iOS = false,
-              //   p = navigator.platform;
-              // if (p === 'iPad' || p === 'iPhone' || p === 'iPod') {
-              //   iOS = true;
-              // }
-              // if (iOS) {
-              //    device = 'ios';
-              // }else {
-              //   device = 'android';
-              // }
-              var device = 'android';
+              var device;
+              var iOS = false,
+                p = navigator.platform;
+              if (p === 'iPad' || p === 'iPhone' || p === 'iPod') {
+                iOS = true;
+              }
+              if (iOS) {
+                 device = 'ios';
+              }else {
+                device = 'android';
+              }
+              // var device = 'ios';
               var date = url("#date")? moment(url("#date")).toDate() : new Date();
               var redraw = function(){
                   drawDate(username, moment(date).format('YYYY-MM-DD'), device, token);
