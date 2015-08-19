@@ -152,7 +152,8 @@ h3, h4 {
 &markers=color:red%7Clabel:C%7C40.718217,-73.998284') !important;
 }*/
 
-.today_test {
+.fc-time-grid-container, .fc-scroller{
+  height: none !important;
 }
 
 
@@ -162,6 +163,3 @@ h3, h4 {
 
 <<<<<<< HEAD
 }*/
-=======
-}*/
->>>>>>> 1db5d81e539ed6dae74c52bd65024728b560b3c7

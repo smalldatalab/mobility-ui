@@ -261,15 +261,15 @@ title: Mobility-omh | Daily Data
               $('#calendar').fullCalendar({
                 header: '',
                 defaultView: 'agendaDay',
-                slotDuration: '00:15:00',
+                slotDuration: '00:10:00',
                 allDaySlot: false,
                 slotEventOverlap: false,
                 scrollTime: '10:00:00',
                 eventAfterRender: function(event, element, view) {
                   $(element).css("background-image", 'url(' + event.url + ')');
                   $(element).css("background-size", 'cover');
-                  $(element).css("width", '90%');
-                  $(element).css("margin-left", '5%');
+                  // $(element).css("width", '90%');
+                  // $(element).css("margin-left", '5%');
                   $(element).addClass('img-responsive');
                 },
             });
