@@ -28,7 +28,7 @@ function drawDate(username, date, device, token){
                 if (typeof obj !== 'undefined') {
                     var time_differences = moment(obj[2]).diff(moment(obj[1]),'minutes') + 40;
                     console.log(time_differences);
-                    if (time_differences >= 30) {
+                    if (time_differences >= 70) {
                         location_events.push({
                             title: 'location',
                             start: moment(obj[1]).format().substring(0, 19),
