@@ -26,14 +26,14 @@ function drawDate(username, date, device, token){
             });
             rows.forEach(function(obj){
                 if (typeof obj !== 'undefined') {
-                    var time_differences = moment(obj[2]).diff(moment(obj[1]),'minutes');
+                    var time_differences = moment(obj[2]).diff(moment(obj[1]),'minutes') + 40;
                     console.log(time_differences);
                     if (time_differences >= 30) {
                         location_events.push({
                             title: 'location',
                             start: moment(obj[1]).format().substring(0, 19),
                             end: moment(obj[2]).format().substring(0, 19),
-                            url: "https://maps.googleapis.com/maps/api/staticmap?center="+ obj[3] + "," + obj[4] + "&zoom=15&size=1000x" + time_differences + "&maptype=roadmap&markers=color:red%7Clabel:S%7C" + obj[3] + "," + obj[4] + "&markers=size:mid&key=AIzaSyC1GFrL26ugupKi80EQynafH6-uiLcgZDg"
+                            url: "https://maps.googleapis.com/maps/api/staticmap?center="+ obj[3] + "," + obj[4] + "&zoom=13&size=1000x" + time_differences + "&maptype=roadmap&markers=color:red%7Clabel:S%7C" + obj[3] + "," + obj[4] + "&markers=size:mid&key=AIzaSyC1GFrL26ugupKi80EQynafH6-uiLcgZDg"
                     })
 
                     }
@@ -50,6 +50,7 @@ function drawDate(username, date, device, token){
         }
     });
 }
+
 
 function deletePreviousBar() {
 
