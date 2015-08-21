@@ -481,7 +481,7 @@ function showYesterdaySummary(username, date, device, token) {
                     differences_text = document.createTextNode(Math.abs(active_difference) + 'min');
                 } else {
                     var active_minute = Math.abs(active_difference % 60);
-                    var active_hour = Math.abs(Math.floor(active_difference/60));
+                    var active_hour = Math.abs(Math.floor(active_difference/60)) - 1;
                     differences_text = document.createTextNode(active_hour + 'hr' + active_minute + 'min');
                 }
 
@@ -605,7 +605,7 @@ function showYesterdaySummary(username, date, device, token) {
                     differences_text = document.createTextNode(Math.abs(away_difference) + 'min');
                 } else {
                     var away_minute = Math.abs(away_difference % 60);
-                    var away_hour = Math.abs(Math.floor(away_difference/60));
+                    var away_hour = Math.abs(Math.floor(away_difference/60)) - 1;
                     differences_text = document.createTextNode(away_hour + 'hr' + away_minute + 'min');
                 }
                 var differences_span = document.createElement('span');
