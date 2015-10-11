@@ -8,7 +8,6 @@ function drawDate(username, date, device, token){
             "Authorization": "Bearer " + token
         },
         success : function(data, device) {
-            // if(device == "android" || device == "ios") {
             var location_events = [];
             rows = data["body"]["episodes"].map(function (epi) {
                 var state = epi["inferred-state"].toLocaleUpperCase();
@@ -28,12 +27,17 @@ function drawDate(username, date, device, token){
             });
             rows.forEach(function(obj){
                 if (typeof obj !== 'undefined') {
-                    location_events.push({
-                        title: 'location',
-                        start: moment(obj[1]).format().substring(0, 19),
-                        end: moment(obj[2]).format().substring(0, 19)
-                        // url: "https://maps.googleapis.com/maps/api/staticmap?center="+ obj[3] + "," + obj[4] + "&zoom=15&size=1000x1000&maptype=roadmap&markers=color:red%7Clabel:S%7C" + obj[3] + "," + obj[4] + "&markers=size:mid&key=AIzaSyC1GFrL26ugupKi80EQynafH6-uiLcgZDg"
+                    var time_differences = moment(obj[2]).diff(moment(obj[1]),'minutes') + 40;
+                    console.log(time_differences);
+                    if (time_differences >= 70) {
+                        location_events.push({
+                            title: 'location',
+                            start: moment(obj[1]).format().substring(0, 19),
+                            end: moment(obj[2]).format().substring(0, 19),
+                            url: "https://maps.googleapis.com/maps/api/staticmap?center="+ obj[3] + "," + obj[4] + "&zoom=13&size=1000x" + time_differences + "&maptype=roadmap&markers=color:red%7Clabel:S%7C" + obj[3] + "," + obj[4] + "&markers=size:mid&key=AIzaSyC1GFrL26ugupKi80EQynafH6-uiLcgZDg"
                     })
+
+                    }
                 }
             });
 
@@ -41,7 +45,6 @@ function drawDate(username, date, device, token){
 
             $('#calendar').fullCalendar('addEventSource', location_events);
             console.log('fullCalendar refreshed?');
-            // }
         },
         error: function(data){
             console.log('Data did not have any locations.')
@@ -478,7 +481,7 @@ function showYesterdaySummary(username, date, device, token) {
                     differences_text = document.createTextNode(Math.abs(active_difference) + 'min');
                 } else {
                     var active_minute = Math.abs(active_difference % 60);
-                    var active_hour = Math.abs(Math.floor(active_difference/60));
+                    var active_hour = Math.abs(Math.floor(active_difference/60)) - 1;
                     differences_text = document.createTextNode(active_hour + 'hr' + active_minute + 'min');
                 }
 
@@ -602,7 +605,7 @@ function showYesterdaySummary(username, date, device, token) {
                     differences_text = document.createTextNode(Math.abs(away_difference) + 'min');
                 } else {
                     var away_minute = Math.abs(away_difference % 60);
-                    var away_hour = Math.abs(Math.floor(away_difference/60));
+                    var away_hour = Math.abs(Math.floor(away_difference/60)) - 1;
                     differences_text = document.createTextNode(away_hour + 'hr' + away_minute + 'min');
                 }
                 var differences_span = document.createElement('span');
@@ -680,19 +683,20 @@ function showYesterdaySummary(username, date, device, token) {
             //     div_1.className = "";
             // }
 
-
-
             var active = $("#active-time").html();
+            if (active === 'No Data') {
+                active = 0;
+            }
             var yesterday_active = 0.00;
             var active_3 = document.getElementById('active-3');
             var active_2 = document.getElementById('active-2');
             var active_1 = document.getElementById('active-1');
 
             if (Number(active) == 0) {
-                var differences_text = document.createTextNode("No Change!");
+                // var differences_text = document.createTextNode("No Change!");
                 var differences_span = document.createElement('span');
                 differences_span.className = 'data-difference';
-                differences_span.appendChild(differences_text);
+                // differences_span.appendChild(differences_text);
                 document.getElementById('active-difference').appendChild(differences_span);
 
                 active_3.setAttribute('style', 'border-right-style: dashed;');
@@ -721,18 +725,19 @@ function showYesterdaySummary(username, date, device, token) {
 
 
             var away = $("#away-from-home").html();
+             if (away === 'No Data') {
+                away = 0;
+            }
             var yesterday_away = 0.00;
-            // e.log(yesterday_awconsolay);
-            // console.log(Number(away) == 0);
             var away_3 = document.getElementById('away-3');
             var away_2 = document.getElementById('away-2');
             var away_1 = document.getElementById('away-1');
 
             if (Number(away) == 0) {
-                var differences_text = document.createTextNode("No Change!");
+                // var differences_text = document.createTextNode("No Change!");
                 var differences_span = document.createElement('span');
                 differences_span.className = 'data-difference';
-                differences_span.appendChild(differences_text);
+                // differences_span.appendChild(differences_text);
                 document.getElementById('away-difference').appendChild(differences_span);
 
                 away_3.setAttribute('style', 'border-right-style: dashed;');

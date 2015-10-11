@@ -43,29 +43,19 @@
             </div>
           </div>
         </div>
-
         <div class="row">
-          <div class="col-xs-12">
+          <div class="col-xs-12 col-sm-12">
             <div class="date-area">
-              <nav>
-                <ul class="pager text-center">
-                  <li id="previous-date"><img src="stylesheets/images/arrow_left.png" style="height:3em;"></li>
-                  <li class="text-center" id="current-date"></li>
-                  <li id="next-date" class="pull-right"><img src="stylesheets/images/arrow_right.png" style="height:3em;"></li>
-                </ul>
-
-              </nav>
-
+              <div class="pager text-center">
+                <span id="previous-date" style="float: left;"><img src="images/arrow_left.png" style="height: 3em;"></span>
+                <span class="text-center" id="current-date"></span>
+                <span id="next-date" style="float: right;"><img src="images/arrow_right.png" style="height:3em;" style="height: 3em;"></span>
+              </div>
             </div>
-
           </div>
-
         </div>
       </div>
       <div class="bottom-area">
-
-
-
 
 
     <div class="data-area">
@@ -235,15 +225,12 @@
 
     </div>
 
-
-
-        <div class="location-area">
-          <div class="map-title">
-            <h3 class="text-center"><img src="stylesheets/images/location.png" style="height:3em;"><span>Places Visited</span></h3>
-          </div>
-
-          <div id="calendar">
-          </div>
+    <div class="location-area">
+      <div class="map-title">
+        <h3 class="text-center"><img src="images/location.png" style="height:3em;"><span>Places Visited</span></h3>
+      </div>
+      <div id="outside-calendar">
+        <div id="calendar">
         </div>
       </div>
     </div>
@@ -251,57 +238,58 @@
     <script type="text/javascript">
 
     $(document).ready(function() {
-      // var today = moment();
-      // $('#current-date').html(today.format('dddd, MMMM Do YYYY'));
+      var today = moment().subtract(1, 'days');
+      $('#current-date').html(today.format('dddd, MMMM Do YYYY') + ' (Yesterday)');
 
-      // var token = url("#access_token");
-      // if(!token)
-      // {
-      //     window.location.href = dsu + "oauth/authorize?client_id=mobility-visualization&response_type=token";
-      // }
-      // else
-      // {
-      //     $.getJSON(dsu + "oauth/check_token?token=" + token)
-      //     .done(function(data) {
-      //         console.log("Get the token!");
-      //         var username = data["user_name"];
-      //         var device;
-      //         var iOS = false,
-      //           p = navigator.platform;
-      //         if (p === 'iPad' || p === 'iPhone' || p === 'iPod') {
-      //           iOS = true;
-      //         }
-      //         if (iOS) {
-      //            device = 'ios';
-      //         }else {
-      //           device = 'android';
-      //         }
-      //         // var device = 'android';
-      //         var date = url("#date")? moment(url("#date")).toDate() : new Date();
-      //         var redraw = function(){
-      //             drawDate(username, moment(date).format('YYYY-MM-DD'), device, token);
-      //             deletePreviousBar();
-      //             showSummary(username, date, device, token);
-      //         };
-      //         redraw();
-      //         $('#next-date').click(function(){
-      //             var tomorrow = moment(today).add(1, 'days');
-      //             today = moment(today).add(1, 'days');
-      //             date = today;
-      //             $('#current-date').html(today.format('dddd, MMMM Do YYYY'));
-      //             $('#calendar').fullCalendar('next');
-      //             redraw();
+      var token = url("#access_token");
+      // var token ='a2b140f0-73de-421e-a79e-031762846c4c';
 
-      //         });
+      if(!token)
+      {
+          window.location.href = dsu + "oauth/authorize?client_id=mobility-visualization&response_type=token";
+      }
+      else
+      {
+          $.getJSON(dsu + "oauth/check_token?token=" + token)
+          .done(function(data) {
+              console.log("Get the token!");
+              var username = data["user_name"];
+              var device;
+              var iOS = false,
+                p = navigator.platform;
+              if (p === 'iPad' || p === 'iPhone' || p === 'iPod') {
+                iOS = true;
+              }
+              if (iOS) {
+                 device = 'ios';
+              }else {
+                device = 'android';
+              }
+              // var device = 'ios';
+              var date = url("#date")? moment(url("#date")).toDate() : new Date();
+              var redraw = function(){
+                  drawDate(username, moment(date).format('YYYY-MM-DD'), device, token);
+                  deletePreviousBar();
+                  showSummary(username, date, device, token);
+              };
+              redraw();
+              $('#next-date').click(function(){
+                  var tomorrow = moment(today).add(1, 'days');
+                  today = moment(today).add(1, 'days');
+                  date = today;
+                  $('#current-date').html(today.format('dddd, MMMM Do YYYY'));
+                  $('#calendar').fullCalendar('next');
+                  redraw();
+              });
 
-      //         $('#previous-date').click(function(){
-      //             var yesterday = moment(today).subtract(1, 'days');
-      //             today = moment(today).subtract(1, 'days');
-      //             $('#current-date').html(today.format('dddd, MMMM Do YYYY'));
-      //             date = today;
-      //             $('#calendar').fullCalendar('prev');
-      //             redraw();
-      //         });
+              $('#previous-date').click(function(){
+                  var yesterday = moment(today).subtract(1, 'days');
+                  today = moment(today).subtract(1, 'days');
+                  $('#current-date').html(today.format('dddd, MMMM Do YYYY'));
+                  date = today;
+                  $('#calendar').fullCalendar('prev');
+                  redraw();
+              });
               $('#calendar').fullCalendar({
                 header: '',
                 defaultView: 'agendaDay',
