@@ -251,62 +251,57 @@
     <script type="text/javascript">
 
     $(document).ready(function() {
-      var today = moment();
-      $('#current-date').html(today.format('dddd, MMMM Do YYYY'));
+      // var today = moment();
+      // $('#current-date').html(today.format('dddd, MMMM Do YYYY'));
 
-      var token = url("#access_token");
-      // eb9f0993-c37a-4f70-842b-2a044c982947
-      // var token = '1a0dd9f0-705a-4f32-ade9-77533dc8a629';
+      // var token = url("#access_token");
+      // if(!token)
+      // {
+      //     window.location.href = dsu + "oauth/authorize?client_id=mobility-visualization&response_type=token";
+      // }
+      // else
+      // {
+      //     $.getJSON(dsu + "oauth/check_token?token=" + token)
+      //     .done(function(data) {
+      //         console.log("Get the token!");
+      //         var username = data["user_name"];
+      //         var device;
+      //         var iOS = false,
+      //           p = navigator.platform;
+      //         if (p === 'iPad' || p === 'iPhone' || p === 'iPod') {
+      //           iOS = true;
+      //         }
+      //         if (iOS) {
+      //            device = 'ios';
+      //         }else {
+      //           device = 'android';
+      //         }
+      //         // var device = 'android';
+      //         var date = url("#date")? moment(url("#date")).toDate() : new Date();
+      //         var redraw = function(){
+      //             drawDate(username, moment(date).format('YYYY-MM-DD'), device, token);
+      //             deletePreviousBar();
+      //             showSummary(username, date, device, token);
+      //         };
+      //         redraw();
+      //         $('#next-date').click(function(){
+      //             var tomorrow = moment(today).add(1, 'days');
+      //             today = moment(today).add(1, 'days');
+      //             date = today;
+      //             $('#current-date').html(today.format('dddd, MMMM Do YYYY'));
+      //             $('#calendar').fullCalendar('next');
+      //             redraw();
 
+      //         });
 
-
-      if(!token)
-      {
-          window.location.href = dsu + "oauth/authorize?client_id=mobility-visualization&response_type=token";
-      }
-      else
-      {
-          $.getJSON(dsu + "oauth/check_token?token=" + token)
-          .done(function(data) {
-              console.log("Get the token!");
-              var username = data["user_name"];
-              var device;
-              var iOS = false,
-                p = navigator.platform;
-              if (p === 'iPad' || p === 'iPhone' || p === 'iPod') {
-                iOS = true;
-              }
-              if (iOS) {
-                 device = 'ios';
-              }else {
-                device = 'android';
-              }
-              // var device = 'android';
-              var date = url("#date")? moment(url("#date")).toDate() : new Date();
-              var redraw = function(){
-                  drawDate(username, moment(date).format('YYYY-MM-DD'), device, token);
-                  deletePreviousBar();
-                  showSummary(username, date, device, token);
-              };
-              redraw();
-              $('#next-date').click(function(){
-                  var tomorrow = moment(today).add(1, 'days');
-                  today = moment(today).add(1, 'days');
-                  date = today;
-                  $('#current-date').html(today.format('dddd, MMMM Do YYYY'));
-                  $('#calendar').fullCalendar('next');
-                  redraw();
-
-              });
-
-              $('#previous-date').click(function(){
-                  var yesterday = moment(today).subtract(1, 'days');
-                  today = moment(today).subtract(1, 'days');
-                  $('#current-date').html(today.format('dddd, MMMM Do YYYY'));
-                  date = today;
-                  $('#calendar').fullCalendar('prev');
-                  redraw();
-              });
+      //         $('#previous-date').click(function(){
+      //             var yesterday = moment(today).subtract(1, 'days');
+      //             today = moment(today).subtract(1, 'days');
+      //             $('#current-date').html(today.format('dddd, MMMM Do YYYY'));
+      //             date = today;
+      //             $('#calendar').fullCalendar('prev');
+      //             redraw();
+      //         });
               $('#calendar').fullCalendar({
                 header: '',
                 defaultView: 'agendaDay',
@@ -323,11 +318,11 @@
                 },
             });
 
-          })
-          .fail(function() {
-              window.location.href = dsu + "oauth/authorize?client_id=mobility_visualization&response_type=token";
-          });
-      }
+      //     })
+      //     .fail(function() {
+      //         window.location.href = dsu + "oauth/authorize?client_id=mobility_visualization&response_type=token";
+      //     });
+      // }
     });
 
   </script>

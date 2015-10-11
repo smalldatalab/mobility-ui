@@ -683,19 +683,20 @@ function showYesterdaySummary(username, date, device, token) {
             //     div_1.className = "";
             // }
 
-
-
             var active = $("#active-time").html();
+            if (active === 'No Data') {
+                active = 0;
+            }
             var yesterday_active = 0.00;
             var active_3 = document.getElementById('active-3');
             var active_2 = document.getElementById('active-2');
             var active_1 = document.getElementById('active-1');
 
             if (Number(active) == 0) {
-                var differences_text = document.createTextNode("No Change!");
+                // var differences_text = document.createTextNode("No Change!");
                 var differences_span = document.createElement('span');
                 differences_span.className = 'data-difference';
-                differences_span.appendChild(differences_text);
+                // differences_span.appendChild(differences_text);
                 document.getElementById('active-difference').appendChild(differences_span);
 
                 active_3.setAttribute('style', 'border-right-style: dashed;');
@@ -724,18 +725,19 @@ function showYesterdaySummary(username, date, device, token) {
 
 
             var away = $("#away-from-home").html();
+             if (away === 'No Data') {
+                away = 0;
+            }
             var yesterday_away = 0.00;
-            // e.log(yesterday_awconsolay);
-            // console.log(Number(away) == 0);
             var away_3 = document.getElementById('away-3');
             var away_2 = document.getElementById('away-2');
             var away_1 = document.getElementById('away-1');
 
             if (Number(away) == 0) {
-                var differences_text = document.createTextNode("No Change!");
+                // var differences_text = document.createTextNode("No Change!");
                 var differences_span = document.createElement('span');
                 differences_span.className = 'data-difference';
-                differences_span.appendChild(differences_text);
+                // differences_span.appendChild(differences_text);
                 document.getElementById('away-difference').appendChild(differences_span);
 
                 away_3.setAttribute('style', 'border-right-style: dashed;');

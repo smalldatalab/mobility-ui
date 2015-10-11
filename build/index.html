@@ -37,15 +37,13 @@
       </div>
     </div>
     <div class="row">
-      <div class="col-xs-12">
+      <div class="col-xs-12 col-sm-12">
         <div class="date-area">
-          <nav>
-            <ul class="pager text-center">
-              <li id="previous-date"><img src="images/arrow_left.png" style="height:3em;"></li>
-              <li class="text-center" id="current-date"></li>
-              <li id="next-date"><img src="images/arrow_right.png" style="height:3em;"></li>
-            </ul>
-          </nav>
+          <div class="pager text-center">
+            <span id="previous-date" style="float: left;"><img src="images/arrow_left.png" style="height: 3em;"></span>
+            <span class="text-center" id="current-date"></span>
+            <span id="next-date" style="float: right;"><img src="images/arrow_right.png" style="height:3em;" style="height: 3em;"></span>
+          </div>
         </div>
       </div>
     </div>
@@ -225,11 +223,12 @@
 </div>
 <script type="text/javascript">
     $(document).ready(function() {
-      var today = moment();
-      $('#current-date').html(today.format('dddd, MMMM Do YYYY'));
+      var today = moment().subtract(1, 'days');
+      $('#current-date').html(today.format('dddd, MMMM Do YYYY') + ' (Yesterday)');
 
       var token = url("#access_token");
-      // var token = '1a0dd9f0-705a-4f32-ade9-77533dc8a629';
+      // var token ='a2b140f0-73de-421e-a79e-031762846c4c';
+
       if(!token)
       {
           window.location.href = dsu + "oauth/authorize?client_id=mobility-visualization&response_type=token";
@@ -251,7 +250,7 @@
               }else {
                 device = 'android';
               }
-              // var device = 'android';
+              // var device = 'ios';
               var date = url("#date")? moment(url("#date")).toDate() : new Date();
               var redraw = function(){
                   drawDate(username, moment(date).format('YYYY-MM-DD'), device, token);
@@ -266,7 +265,6 @@
                   $('#current-date').html(today.format('dddd, MMMM Do YYYY'));
                   $('#calendar').fullCalendar('next');
                   redraw();
-
               });
 
               $('#previous-date').click(function(){
@@ -280,15 +278,15 @@
               $('#calendar').fullCalendar({
                 header: '',
                 defaultView: 'agendaDay',
-                slotDuration: '00:15:00',
+                slotDuration: '00:10:00',
                 allDaySlot: false,
                 slotEventOverlap: false,
                 scrollTime: '10:00:00',
                 eventAfterRender: function(event, element, view) {
                   $(element).css("background-image", 'url(' + event.url + ')');
                   $(element).css("background-size", 'cover');
-                  $(element).css("width", '90%');
-                  $(element).css("margin-left", '5%');
+                  // $(element).css("width", '90%');
+                  // $(element).css("margin-left", '5%');
                   $(element).addClass('img-responsive');
                 },
             });
