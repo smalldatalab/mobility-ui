@@ -204,7 +204,7 @@ title: Mobility-omh | Daily Data
       $('#current-date').html(today.format('dddd, MMMM Do YYYY') + ' (Yesterday)');
 
       var token = url("#access_token");
-      // var token ='a2b140f0-73de-421e-a79e-031762846c4c';
+      // var token ='e0e22ede-3f3c-48d2-9d36-5493e4fd9d2d';
 
       if(!token)
       {
@@ -228,11 +228,11 @@ title: Mobility-omh | Daily Data
                 device = 'android';
               }
               // var device = 'ios';
-              var date = url("#date")? moment(url("#date")).toDate() : new Date();
+              // var date = url("#date")? moment(url("#date")).toDate() : new Date();
               var redraw = function(){
-                  drawDate(username, moment(date).format('YYYY-MM-DD'), device, token);
+                  drawDate(username, moment(today).format('YYYY-MM-DD'), device, token);
                   deletePreviousBar();
-                  showSummary(username, date, device, token);
+                  showSummary(username, moment(today).format('YYYY-MM-DD'), device, token);
               };
               redraw();
               $('#next-date').click(function(){

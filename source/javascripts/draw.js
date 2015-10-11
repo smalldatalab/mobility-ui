@@ -114,6 +114,7 @@ function showSummary(username, date, device, token) {
             }
 
             var active = data.body["active_time_in_seconds"];
+            console.log(data.body["active_time_in_seconds"] + "Today's active");
             if (typeof active != 'undefined') {
                 var active_data = (active/60).toFixed(0);
                 $("#active-time").data('value', active_data);
@@ -157,6 +158,7 @@ function showSummary(username, date, device, token) {
             $("#trek-mile").html('No Data');
             $("#away-from-home").html('No Data');
             $("#active-time").html('No Data');
+            console.log('active fail');
             var yesterday_date =  moment(today).subtract(1, 'days');
             showYesterdaySummary(username, yesterday_date, device, token);
         }
@@ -288,9 +290,6 @@ function showYesterdaySummary(username, date, device, token) {
 
 
 
-
-
-
             var yesterday_trek;
             if (isNaN(data.body["longest-trek-in-km"])) {
                 yesterday_trek = 0;
@@ -409,6 +408,7 @@ function showYesterdaySummary(username, date, device, token) {
 
 
             var yesterday_active;
+            console.log(data.body["active_time_in_seconds"]);
             if (isNaN(data.body["active_time_in_seconds"])) {
                 yesterday_active = 0;
             }else {
@@ -421,6 +421,7 @@ function showYesterdaySummary(username, date, device, token) {
                 active = 0;
             }
             var active_difference = active - yesterday_active;
+            console.log(active_difference + "HDhjhshads");
             var total_active = Math.abs(active_difference) + Number(active);
 
             var active_percentage = Number(active) / Number(total_active);
@@ -647,6 +648,7 @@ function showYesterdaySummary(username, date, device, token) {
             }
         },
         error: function(data) {
+            console.log("yesterday active fail");
             // var distance = $("#walking-distance").html();
             // var yesterday_distance = 0.00;
             // var div_3 = document.getElementById('miles-3');
