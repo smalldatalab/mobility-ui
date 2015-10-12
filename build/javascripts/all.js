@@ -126,7 +126,6 @@ function showSummary(username, date, device, token) {
             }
 
             var away = data.body["time_not_at_home_in_seconds"];
-            console.log(data.body["time_not_at_home_in_seconds"] + "Today's away");
             if (typeof away != 'undefined') {
                 var away_data = (away/60).toFixed(0);
                 $("#away-from-home").data('value', away_data);
@@ -157,6 +156,7 @@ function showSummary(username, date, device, token) {
             $("#away-from-home").data('value', 'No Data');
             $("#active-time").html('No Data');
             $("#active-time").data('value','No Data');
+
             var yesterday_date =  moment(today).subtract(1, 'days');
             showYesterdaySummary(username, yesterday_date, device, token);
         }
@@ -177,12 +177,14 @@ function showYesterdaySummary(username, date, device, token) {
             var div_3 = document.getElementById('miles-3');
             var div_2 = document.getElementById('miles-2');
             var div_1 = document.getElementById('miles-1');
+            div_3.className = "dashed_border miles-walked-color";
+
             if (distance == 'No Data') {
                 div_3.setAttribute('style', 'border-right-style: dashed;');
                 div_2.className = "";
                 div_1.className = "";
             }else {
-                if (isNaN(data.body["walking_distance_in_km"])) {
+                if (isNaN(data.body["walking_distance_in_km"]) && distance !== 0) {
                     div_2.className = 'solid_border miles-walked-color miles-walked-background-color';
                     div_2.setAttribute('style', 'width: 100%');
                     div_3.setAttribute('style', 'border-right-style: solid;');
@@ -195,7 +197,6 @@ function showYesterdaySummary(username, date, device, token) {
                     var distance_percentage = Number(distance) / Number(total_distance);
                     var yesterday_distance_percentage = Number(yesterday_distance)/Number(total_distance);
 
-                    div_3.className = "dashed_border miles-walked-color";
                     if (distance_difference > 0) {
                         var arrow_up = document.createElement('img');
                         arrow_up.src = 'images/arrow_up.png';
@@ -293,13 +294,15 @@ function showYesterdaySummary(username, date, device, token) {
             var trek_3 = document.getElementById('trek-3');
             var trek_2 = document.getElementById('trek-2');
             var trek_1 = document.getElementById('trek-1');
+            trek_3.className = "dashed_border trek-mile-color";
+
 
              if (trek == 'No Data') {
                 trek_3.setAttribute('style', 'border-right-style: dashed;');
                 trek_2.className = "";
                 trek_1.className = "";
             }else {
-                if (isNaN(data.body["longest-trek-in-km"])) {
+                if (isNaN(data.body["longest-trek-in-km"]) && trek !== 0) {
                     trek_2.className = 'solid_border trek-mile-color trek-mile-background-color';
                     trek_2.setAttribute('style', 'width: 100%');
                     trek_3.setAttribute('style', 'border-right-style: solid');
@@ -312,7 +315,6 @@ function showYesterdaySummary(username, date, device, token) {
                     var trek_percentage = Number(trek) / Number(total_trek);
                     var yesterday_trek_percentage = Number(yesterday_trek)/Number(total_trek);
 
-                    trek_3.className = "dashed_border trek-mile-color";
 
                     if (trek_difference > 0) {
                         var arrow_up = document.createElement('img');
@@ -408,16 +410,18 @@ function showYesterdaySummary(username, date, device, token) {
 
             var yesterday_active;
             var active = $("#active-time").data('value');
+            console.log(active);
             var active_3 = document.getElementById('active-3');
             var active_2 = document.getElementById('active-2');
             var active_1 = document.getElementById('active-1');
+            active_3.className = "dashed_border minutes-active-color";
 
             if (active === 'No Data') {
                 active_2.className = "";
                 active_3.setAttribute('style', 'border-right-style: dashed');
                 active_1.className = "";
             }else {
-                if (isNaN(data.body["active_time_in_seconds"])) {
+                if ((isNaN(data.body["active_time_in_seconds"])) && (active !== 0)) {
                     active_2.className = 'solid_border minutes-active-color minutes-active-background-color';
                     active_2.setAttribute('style', 'width: 100%');
                     active_3.setAttribute('style', 'border-right-style: solid');
@@ -430,7 +434,6 @@ function showYesterdaySummary(username, date, device, token) {
                     var active_percentage = Number(active) / Number(total_active);
                     var yesterday_active_percentage = Number(yesterday_active)/ Number(total_active);
 
-                    active_3.className = "dashed_border minutes-active-color";
                     if (active_difference > 0) {
                         var arrow_up = document.createElement('img');
                         arrow_up.src = 'images/arrow_up.png';
@@ -531,12 +534,13 @@ function showYesterdaySummary(username, date, device, token) {
             var away_3 = document.getElementById('away-3');
             var away_2 = document.getElementById('away-2');
             var away_1 = document.getElementById('away-1');
+            away_3.className = "dashed_border hours-out-of-house-color";
             if (away === 'No Data') {
                 away_3.setAttribute('style', 'border-right-style: dashed;');
                 away_2.className = "";
                 away_1.className = "";
             }else {
-                if (isNaN(data.body["time_not_at_home_in_seconds"])) {
+                if ((isNaN(data.body["time_not_at_home_in_seconds"])) && (away !== 0)) {
                     away_2.className = 'solid_border hours-out-of-house-color hours-out-background-color';
                     away_2.setAttribute('style', 'width: 100%');
                     away_3.setAttribute('style', 'border-right-style: solid');
@@ -550,7 +554,6 @@ function showYesterdaySummary(username, date, device, token) {
                     var yesterday_away_percentage = Number(yesterday_away)/Number(total_away);
 
                     // var away_difference_percentage = Math.abs(away_difference) / Number(total_away);
-                    away_3.className = "dashed_border hours-out-of-house-color";
                     if (away_difference > 0) {
                         var arrow_up = document.createElement('img');
                         arrow_up.src = 'images/arrow_up.png';
@@ -649,19 +652,20 @@ function showYesterdaySummary(username, date, device, token) {
 
         },
         error: function(data) {
-            var distance = $("#walking-distance").html();
+            var distance = $("#walking-distance").data('value');
             var div_3 = document.getElementById('miles-3');
             var div_2 = document.getElementById('miles-2');
             var div_1 = document.getElementById('miles-1');
+            div_3.className = "dashed_border miles-walked-color";
 
-            if (distance === 'No Data') {
+            if ((distance === 'No Data') || (distance == 0)) {
                 div_3.setAttribute('style', 'border-right-style: dashed;');
                 div_2.className = "";
                 div_1.className = "";
             }else {
                 div_2.className = 'solid_border miles-walked-color miles-walked-background-color';
                 div_2.setAttribute('style', 'width: 100%');
-                div_3.setAttribute('style', 'border-right-style: solid');
+                div_3.setAttribute('style', 'border-right-style: solid;');
                 div_1.className = "";
             }
 
@@ -669,46 +673,50 @@ function showYesterdaySummary(username, date, device, token) {
             var trek_3 = document.getElementById('trek-3');
             var trek_2 = document.getElementById('trek-2');
             var trek_1 = document.getElementById('trek-1');
+            trek_3.className = "dashed_border trek-mile-color";
 
-            if (trek == 'No Data') {
+            if ((trek == 'No Data') || (trek == 0)) {
                 trek_3.setAttribute('style', 'border-right-style: dashed;');
                 trek_2.className = "";
                 trek_1.className = "";
             }else {
                 trek_2.className = 'solid_border trek-mile-color trek-mile-background-color';
                 trek_2.setAttribute('style', 'width: 100%');
-                trek_3.setAttribute('style', 'border-right-style: solid');
+                trek_3.setAttribute('style', 'border-right-style: solid;');
                 trek_1.className = "";
             }
 
 
-            var active = $("#active-time").html();
+            var active = $("#active-time").data('value');
             var active_3 = document.getElementById('active-3');
             var active_2 = document.getElementById('active-2');
             var active_1 = document.getElementById('active-1');
-            if (active === 'No Data') {
+            active_3.className = "dashed_border minutes-active-color";
+
+            if ((active === 'No Data') || (active == 0)) {
                 active_3.setAttribute('style', 'border-right-style: dashed;');
                 active_2.className = "";
                 active_1.className = "";
             }else {
                 active_2.className = 'solid_border minutes-active-color minutes-active-background-color';
                 active_2.setAttribute('style', 'width: 100%');
-                active_3.setAttribute('style', 'border-right-style: solid');
+                active_3.setAttribute('style', 'border-right-style: solid;');
                 active_1.className = "";
             }
 
-            var away = $("#away-from-home").html();
+            var away = $("#away-from-home").data('value');
             var away_3 = document.getElementById('away-3');
             var away_2 = document.getElementById('away-2');
             var away_1 = document.getElementById('away-1');
-            if (away === 'No Data') {
+            away_3.className = "dashed_border hours-out-of-house-color";
+            if ((away == 0) || (away == 'No Data')) {
                 away_3.setAttribute('style', 'border-right-style: dashed;');
                 away_2.className = "";
                 away_1.className = "";
             }else {
                 away_2.className = 'solid_border hours-out-of-house-color hours-out-background-color';
                 away_2.setAttribute('style', 'width: 100%');
-                away_3.setAttribute('style', 'border-right-style: solid');
+                away_3.setAttribute('style', 'border-right-style: solid;');
                 away_1.className = "";
             }
 
