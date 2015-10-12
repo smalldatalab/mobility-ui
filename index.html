@@ -240,14 +240,7 @@
     $(document).ready(function() {
       var today = moment().subtract(1, 'days');
       $('#current-date').html(today.format('dddd, MMMM Do YYYY') + ' (Yesterday)');
-
-<<<<<<< HEAD
       var token = url("#access_token");
-      // var token ='e0e22ede-3f3c-48d2-9d36-5493e4fd9d2d';
-=======
-      // var token = url("#access_token");
-      var token ='6b2a907d-426b-450c-9714-0958a9056c27';
->>>>>>> 4cbf4834c73aeac02e38a2755e6e05c2d835a165
 
       if(!token)
       {
@@ -259,7 +252,6 @@
           .done(function(data) {
               console.log("Get the token!");
               var username = data["user_name"];
-<<<<<<< HEAD
               var device;
               var iOS = false,
                 p = navigator.platform;
@@ -273,25 +265,9 @@
               }
               // var device = 'ios';
               // var date = url("#date")? moment(url("#date")).toDate() : new Date();
+
               var redraw = function(){
                   drawDate(username, moment(today).format('YYYY-MM-DD'), device, token);
-=======
-              // var device;
-              // var iOS = false,
-              //   p = navigator.platform;
-              // if (p === 'iPad' || p === 'iPhone' || p === 'iPod') {
-              //   iOS = true;
-              // }
-              // if (iOS) {
-              //    device = 'ios';
-              // }else {
-              //   device = 'android';
-              // }
-              var device = 'ios';
-              // var date = url("#date")? moment(url("#date")).toDate() : new Date();
-              var redraw = function(){
-                  // drawDate(username, moment(today).format('YYYY-MM-DD'), device, token);
->>>>>>> 4cbf4834c73aeac02e38a2755e6e05c2d835a165
                   deletePreviousBar();
                   showSummary(username, moment(today).format('YYYY-MM-DD'), device, token);
               };
