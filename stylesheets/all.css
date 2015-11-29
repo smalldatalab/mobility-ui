@@ -3,7 +3,8 @@
 .top-area {
   background-color: #16A085;
   width: 100%;
-  height: 25em;
+  /*height: 25em;*/
+  height: 15em;
 }
 
 .date-area {
@@ -24,7 +25,8 @@
 
 h3, h4 {
   font-weight: 100 !important;
-  font-size: 5em;
+  /*font-size: 5em;*/
+  font-size: 3.5em !important;
 }
 
 .location-info {
@@ -38,13 +40,15 @@ h3, h4 {
 }
 
 .solid_border {
-  height: 9em;
+  /*height: 9em;*/
+  height: 7em;
   clear: both;
   margin-top: -.23em;
 }
 
 .dashed_border {
-  height: 9em;
+  /*height: 9em;*/
+  height: 7em;
   border-top-style: dashed;
   border-left-style: solid;
   border-right-style: dashed;
@@ -105,11 +109,12 @@ h3, h4 {
 
 
 #walking-distance, #active-time, #away-from-home, #trek-mile {
-  font-size: 6em;
+  font-size: 5em;
 }
 
 .data-icon {
-  height: 10em;
+  /*height: 10em;*/
+  height: 7em;
 }
 .data-difference {
   font-weight: 100;
@@ -137,12 +142,17 @@ h3, h4 {
   padding-top: 3em;
 }
 
-.maps {
+.maps img{
   width: 100%;
 }
 
 #calendar {
   overflow: hidden;
+}
+
+hr {
+  margin-top: 0em !important;
+  margin-bottom: 1em !important;
 }
 /*.today_test {
   background-size: cover;

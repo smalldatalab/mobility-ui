@@ -178,8 +178,8 @@ title: Mobility-omh | Daily Data
       var today = moment().subtract(1, 'days');
       $('#current-date').html(today.format('dddd, MMMM Do YYYY') + ' (Yesterday)');
 
-      // var token = url("#access_token");
-      var token ='41b33c0c-46f0-4f29-806e-32db67d47688';
+      var token = url("#access_token");
+      // var token ='41b33c0c-46f0-4f29-806e-32db67d47688';
 
       if(!token)
       {
@@ -192,17 +192,17 @@ title: Mobility-omh | Daily Data
               console.log("Get the token!");
               var username = data["user_name"];
               var device;
-              // var iOS = false,
-              //   p = navigator.platform;
-              // if (p === 'iPad' || p === 'iPhone' || p === 'iPod') {
-              //   iOS = true;
-              // }
-              // if (iOS) {
-              //    device = 'ios';
-              // }else {
-              //   device = 'android';
-              // }
-              var device = 'android';
+              var iOS = false,
+                p = navigator.platform;
+              if (p === 'iPad' || p === 'iPhone' || p === 'iPod') {
+                iOS = true;
+              }
+              if (iOS) {
+                 device = 'ios';
+              }else {
+                device = 'android';
+              }
+              // var device = 'android';
               // var date = url("#date")? moment(url("#date")).toDate() : new Date();
               var redraw = function(){
                   deletePreviousImg();
