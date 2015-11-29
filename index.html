@@ -224,17 +224,17 @@
               console.log("Get the token!");
               var username = data["user_name"];
               var device;
-              // var iOS = false,
-              //   p = navigator.platform;
-              // if (p === 'iPad' || p === 'iPhone' || p === 'iPod') {
-              //   iOS = true;
-              // }
-              // if (iOS) {
-              //    device = 'ios';
-              // }else {
-              //   device = 'android';
-              // }
-              var device = 'android';
+              var iOS = false,
+                p = navigator.platform;
+              if (p === 'iPad' || p === 'iPhone' || p === 'iPod') {
+                iOS = true;
+              }
+              if (iOS) {
+                 device = 'ios';
+              }else {
+                device = 'android';
+              }
+              // var device = 'android';
               // var date = url("#date")? moment(url("#date")).toDate() : new Date();
 
               var redraw = function(){
