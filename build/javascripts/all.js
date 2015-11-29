@@ -139,7 +139,6 @@ function deletePreviousImg() {
     };
 }
 
-
 function deletePreviousBar() {
 
     var distanceNumber = document.getElementById("miles-difference");
