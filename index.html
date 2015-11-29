@@ -213,7 +213,6 @@
       $('#current-date').html(today.format('dddd, MMMM Do YYYY') + ' (Yesterday)');
 
       var token = url("#access_token");
-
       if(!token)
       {
           window.location.href = dsu + "oauth/authorize?client_id=mobility-visualization&response_type=token";
