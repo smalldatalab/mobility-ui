@@ -17,9 +17,9 @@ title: Mobility-omh | Daily Data
       <div class="col-xs-12 col-sm-12">
         <div class="date-area">
           <div class="pager text-center">
-            <span id="previous-date" style="float: left;"><img src="images/arrow_left.png" style="height: 3em;"></span>
+            <span id="previous-date" style="float: left;"><img src="images/arrow_left.png" style="height: 2em;"></span>
             <span class="text-center" id="current-date"></span>
-            <span id="next-date" style="float: right;"><img src="images/arrow_right.png" style="height:3em;" style="height: 3em;"></span>
+            <span id="next-date" style="float: right;"><img src="images/arrow_right.png" style="height:2em;" style="height: 3em;"></span>
           </div>
         </div>
       </div>
@@ -35,7 +35,6 @@ title: Mobility-omh | Daily Data
           </div>
           <div class="col-xs-6 pull-right">
             <span class="pull-right" id="active-difference">
-
             </span>
             <span id="active-time" class="pull-right" style="margin-top: -.25em; padding-right: .1em;"></span>
           </div>
@@ -44,25 +43,18 @@ title: Mobility-omh | Daily Data
         <div class="row">
           <div class="col-xs-2">
             <img src="images/stop_watch.png" class="data-icon">
-
           </div>
           <div class="col-xs-10">
             <div>
-
               <div id="active-3">
                 <div id="active-2">
                   <div id="active-1">
-
                   </div>
-
                 </div>
-
               </div>
-
+              <p class="pull-right" style="font-size: 1.8em; font-weight: 100 !important;">*Relative to your past seven days' max</p>
             </div>
-
           </div>
-
         </div>
       </div>
 
@@ -75,34 +67,26 @@ title: Mobility-omh | Daily Data
           </div>
           <div class="col-xs-6 pull-right">
             <span class="pull-right" id="trek-difference">
-
             </span>
             <span id="trek-mile" class="pull-right" style="margin-top: -.25em; padding-right: .1em;"></span>
-
           </div>
-
         </div>
         <div class="row">
           <div class="col-xs-2">
             <img src="images/trek_man.png" class="data-icon">
-
           </div>
           <div class="col-xs-10">
             <div>
               <div id="trek-3">
                 <div id="trek-2">
                   <div id="trek-1">
-
                   </div>
                 </div>
-
               </div>
+              <p class="pull-right" style="font-size: 1.8em; font-weight: 100 !important;">*Relative to your past seven days' max</p>
             </div>
-
           </div>
-
         </div>
-
       </div>
 
       <hr>
@@ -114,7 +98,6 @@ title: Mobility-omh | Daily Data
           </div>
           <div class="col-xs-6 pull-right">
             <span class="pull-right" id="away-difference">
-
             </span>
             <span id="away-from-home" class="pull-right" style="margin-top: -.25em; padding-right: .1em;"></span>
           </div>
@@ -126,17 +109,14 @@ title: Mobility-omh | Daily Data
           </div>
           <div class="col-xs-10">
             <div>
-
               <div id="away-3">
                 <div id="away-2">
                   <div id="away-1">
 
                   </div>
-
                 </div>
-
               </div>
-
+              <p class="pull-right" style="font-size: 1.8em; font-weight: 100 !important;">*Relative to your past seven days' max</p>
             </div>
           </div>
         </div>
@@ -162,22 +142,14 @@ title: Mobility-omh | Daily Data
           </div>
           <div class="col-xs-10">
             <div>
-
               <div id="miles-3">
-
                 <div id="miles-2">
-
                   <div id="miles-1">
-
                   </div>
-
                 </div>
               </div>
-
-
+              <p class="pull-right" style="font-size: 1.8em; font-weight: 100 !important;">*Relative to your past seven days' max</p>
             </div>
-
-
           </div>
         </div>
       </div>
@@ -189,11 +161,14 @@ title: Mobility-omh | Daily Data
 
     <div class="location-area">
       <div class="map-title">
-        <h3 class="text-center"><img src="images/location.png" style="height:3em;"><span>Places Visited</span></h3>
+        <h3 class="text-center"><img src="images/location.png" style="height:1.5em; margin-right: 1em;"><span>Places Visited</span></h3>
       </div>
-      <div id="outside-calendar">
+      <!-- <div id="outside-calendar">
         <div id="calendar">
         </div>
+      </div> -->
+      <div id="google-locations">
+
       </div>
     </div>
   </div>
@@ -203,8 +178,8 @@ title: Mobility-omh | Daily Data
       var today = moment().subtract(1, 'days');
       $('#current-date').html(today.format('dddd, MMMM Do YYYY') + ' (Yesterday)');
 
-      var token = url("#access_token");
-      // var token ='6b2a907d-426b-450c-9714-0958a9056c27';
+      // var token = url("#access_token");
+      var token ='41b33c0c-46f0-4f29-806e-32db67d47688';
 
       if(!token)
       {
@@ -217,19 +192,20 @@ title: Mobility-omh | Daily Data
               console.log("Get the token!");
               var username = data["user_name"];
               var device;
-              var iOS = false,
-                p = navigator.platform;
-              if (p === 'iPad' || p === 'iPhone' || p === 'iPod') {
-                iOS = true;
-              }
-              if (iOS) {
-                 device = 'ios';
-              }else {
-                device = 'android';
-              }
-              // var device = 'ios';
+              // var iOS = false,
+              //   p = navigator.platform;
+              // if (p === 'iPad' || p === 'iPhone' || p === 'iPod') {
+              //   iOS = true;
+              // }
+              // if (iOS) {
+              //    device = 'ios';
+              // }else {
+              //   device = 'android';
+              // }
+              var device = 'android';
               // var date = url("#date")? moment(url("#date")).toDate() : new Date();
               var redraw = function(){
+                  deletePreviousImg();
                   drawDate(username, moment(today).format('YYYY-MM-DD'), device, token);
                   deletePreviousBar();
                   showSummary(username, moment(today).format('YYYY-MM-DD'), device, token);
@@ -242,6 +218,7 @@ title: Mobility-omh | Daily Data
                   $('#current-date').html(today.format('dddd, MMMM Do YYYY'));
                   $('#calendar').fullCalendar('next');
                   redraw();
+                  sortMe();
               });
 
               $('#previous-date').click(function(){
@@ -252,23 +229,22 @@ title: Mobility-omh | Daily Data
                   $('#calendar').fullCalendar('prev');
                   redraw();
               });
-              $('#calendar').fullCalendar({
-                header: '',
-                defaultDate: moment().subtract(1, 'days'),
-                defaultView: 'agendaDay',
-                slotDuration: '00:10:00',
-                allDaySlot: false,
-                slotEventOverlap: false,
-                scrollTime: '10:00:00',
-                eventAfterRender: function(event, element, view) {
-                  $(element).css("background-image", 'url(' + event.url + ')');
-                  $(element).css("background-size", 'cover');
-                  // $(element).css("width", '90%');
-                  // $(element).css("margin-left", '5%');
-                  $(element).addClass('img-responsive');
-                },
-            });
-
+            //   $('#calendar').fullCalendar({
+            //     header: '',
+            //     defaultDate: moment().subtract(1, 'days'),
+            //     defaultView: 'agendaDay',
+            //     slotDuration: '00:10:00',
+            //     allDaySlot: false,
+            //     slotEventOverlap: false,
+            //     scrollTime: '10:00:00',
+            //     eventAfterRender: function(event, element, view) {
+            //       $(element).css("background-image", 'url(' + event.url + ')');
+            //       $(element).css("background-size", 'cover');
+            //       // $(element).css("width", '90%');
+            //       // $(element).css("margin-left", '5%');
+            //       $(element).addClass('img-responsive');
+            //     },
+            // });
           })
           .fail(function() {
               window.location.href = dsu + "oauth/authorize?client_id=mobility_visualization&response_type=token";
