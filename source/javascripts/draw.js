@@ -558,12 +558,12 @@ function pastSevenDaysSummary(username, date, device, token) {
         var away_max = Math.max.apply(Math, away_array);
         var active_max = Math.max.apply(Math, active_array);
         var trek_max = Math.max.apply(Math, trek_array);
-        showYesterdaySummary(trek_max, active_max, away_max, distance_max, one_day_distance, one_day_active, one_day_away, one_day_trek);
+        showYesterdaySummary(trek_max, active_max, away_max, distance_max);
     })
 }
 
 
-function showYesterdaySummary(trek_max, active_max, away_max, distance_max, one_day_distance, one_day_active, one_day_away, one_day_trek) {
+function showYesterdaySummary(trek_max, active_max, away_max, distance_max) {
     var distance = $("#walking-distance").data('value');
     var div_3 = document.getElementById('miles-3');
     var div_2 = document.getElementById('miles-2');
@@ -590,8 +590,8 @@ function showYesterdaySummary(trek_max, active_max, away_max, distance_max, one_
         }
     }
 
-    if (distance != 'No Data' && one_day_distance != 'No Data') {
-        var distance_difference = Number(distance) - Number(one_day_distance);
+    if (distance != 'No Data' && distance_max != 'No Data') {
+        var distance_difference = Number(distance) - Number(distance_max);
         if (distance_difference > 0 ) {
             var arrow_up = document.createElement('img');
             arrow_up.src = 'images/arrow_up.png';
@@ -668,8 +668,8 @@ function showYesterdaySummary(trek_max, active_max, away_max, distance_max, one_
     }
 
 
-    if (trek != 'No Data' && one_day_trek != 'No Data') {
-        var trek_difference = Number(trek) - Number(one_day_trek);
+    if (trek != 'No Data' && trek_max != 'No Data') {
+        var trek_difference = Number(trek) - Number(trek_max);
         if (trek_difference > 0) {
             var arrow_up = document.createElement('img');
             arrow_up.src = 'images/arrow_up.png';
@@ -748,8 +748,8 @@ function showYesterdaySummary(trek_max, active_max, away_max, distance_max, one_
         }
     }
 
-    if (active != 'No Data' && one_day_active != 'No Data') {
-        var active_difference = active - (one_day_active/60).toFixed(0);
+    if (active != 'No Data' && active_max != 'No Data') {
+        var active_difference = active - (active_max/60).toFixed(0);
         if (active_difference > 0) {
             var arrow_up = document.createElement('img');
             arrow_up.src = 'images/arrow_up.png';
@@ -828,8 +828,8 @@ function showYesterdaySummary(trek_max, active_max, away_max, distance_max, one_
         }
     }
 
-    if (away != 'No Data' && one_day_away != 'No Data') {
-         var away_difference = Number(away) - Number(one_day_away/60).toFixed(0);
+    if (away != 'No Data' && away_max != 'No Data') {
+         var away_difference = Number(away) - Number(away_max/60).toFixed(0);
          if (away_difference > 0) {
             var arrow_up = document.createElement('img');
             arrow_up.src = 'images/arrow_up.png';
