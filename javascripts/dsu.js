@@ -15,8 +15,8 @@ var dsu =
         var deferred = args["deferred"] || $.Deferred();
 
         // if the requested data available, call success callback and resolve promise,
-        // else if we already pass the requested date but haven't seen the requested data, call error callbakc
-        // else continue to get last 7 data points from the DSU
+        // if the returned data is earlier than the requested date but we haven't seen the requested data, call error callback
+        // otherwise continue to get last 16 data points from the DSU
         var target = this._data.filter(function(d){return d.date==date && d.device==device;});
         if (target.length){
             success(target[0]);
@@ -60,6 +60,7 @@ var dsu =
                     }
                 },
                 error: function (e, status, error) {
+                    // assume it is an authorization error. redirect to the sign in page
                     window.location.href = dsu_url + "oauth/authorize?client_id=mobility-visualization&response_type=token";
                 }
 

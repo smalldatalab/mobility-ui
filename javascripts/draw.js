@@ -255,7 +255,10 @@ function showSummary(date, device) {
 
 function pastSevenDaysSummary(date, device) {
     date = moment(date);
-    var distance_array = []; var active_array = []; var away_array = []; var trek_array = [];
+    var distance_array = [0]; var active_array = [0]; var away_array = [0]; var trek_array = [0];
+
+    // query the data for the past 7 days and push them to the above arrays,
+    // and then compute the maximum value for each individual array
     $.when.apply(
         this,
         _.range(1, 8).map(function(days){
@@ -263,29 +266,10 @@ function pastSevenDaysSummary(date, device) {
                 date: date.subtract(days, 'days').format('YYYY-MM-DD'),
                 device: device,
                 success: function(data) {
-                    var one_day_distance = (data["walking_distance_in_km"]*0.621371192).toFixed(1);
-                    if (typeof one_day_distance == 'undefined') {
-                        one_day_distance = 0;
-                    }
-
-                    var one_day_trek = (data["longest-trek-in-km"]*0.621371192).toFixed(1);
-                    if (typeof one_day_trek == 'undefined') {
-                        one_day_trek = 0;
-                    }
-
-                    var one_day_active = data["active_time_in_seconds"];
-                    if (typeof one_day_active == 'undefined') {
-                        one_day_active = 0;
-                    }
-
-                    var one_day_away = data["time_not_at_home_in_seconds"];
-                    if (typeof one_day_away == 'undefined') {
-                        one_day_away = 0;
-                    }
-                    distance_array.push(parseFloat(one_day_distance));
-                    away_array.push(parseFloat(one_day_away));
-                    active_array.push(parseFloat(one_day_active));
-                    trek_array.push(parseFloat(one_day_trek));
+                    distance_array.push((data["walking_distance_in_km"] | 0) *0.621371192);
+                    trek_array.push((data["longest-trek-in-km"] | 0) *0.621371192);
+                    away_array.push(data["time_not_at_home_in_seconds"]| 0);
+                    active_array.push(data["active_time_in_seconds"] | 0);
                 },
                 error: function(data) {
                 }
