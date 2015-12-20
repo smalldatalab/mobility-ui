@@ -206,10 +206,10 @@
 
     <script type="text/javascript">
         var today = moment().subtract(1, 'days');
-        // var token = url("#access_token");
-        var token = "41b33c0c-46f0-4f29-806e-32db67d47688";
-        var device = "android";
-        // var device = _.contains(['iPad', 'iPhone', 'iPod'], navigator.platform) ? 'ios': 'android';
+        var token = url("#access_token");
+        // var token = "41b33c0c-46f0-4f29-806e-32db67d47688";
+        // var device = "android";
+        var device = _.contains(['iPad', 'iPhone', 'iPod'], navigator.platform) ? 'ios': 'android';
         var $currentDate = $('#current-date');
         var $nextDate = $('#next-date');
         var $prevDate = $('#previous-date');
