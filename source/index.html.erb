@@ -163,10 +163,6 @@ title: Mobility-omh | Daily Data
       <div class="map-title">
         <h3 class="text-center"><img src="images/location.png" style="height:1.5em; margin-right: 1em;"><span>Places Visited</span></h3>
       </div>
-      <!-- <div id="outside-calendar">
-        <div id="calendar">
-        </div>
-      </div> -->
       <div id="google-locations">
 
       </div>
@@ -174,82 +170,36 @@ title: Mobility-omh | Daily Data
   </div>
 </div>
 <script type="text/javascript">
-    $(document).ready(function() {
-      var today = moment().subtract(1, 'days');
-      $('#current-date').html(today.format('dddd, MMMM Do YYYY') + ' (Yesterday)');
-
-      // var token = url("#access_token");
-      var token ='41b33c0c-46f0-4f29-806e-32db67d47688';
-
-      if(!token)
-      {
-          window.location.href = dsu + "oauth/authorize?client_id=mobility-visualization&response_type=token";
-      }
-      else
-      {
-          $.getJSON(dsu + "oauth/check_token?token=" + token)
-          .done(function(data) {
-              console.log("Get the token!");
-              var username = data["user_name"];
-              var device;
-              var iOS = false,
-                p = navigator.platform;
-              if (p === 'iPad' || p === 'iPhone' || p === 'iPod') {
-                iOS = true;
-              }
-              if (iOS) {
-                 device = 'ios';
-              }else {
-                device = 'android';
-              }
-              var device = 'android';
-              // var date = url("#date")? moment(url("#date")).toDate() : new Date();
-              var redraw = function(){
-                  deletePreviousImg();
-                  drawDate(username, moment(today).format('YYYY-MM-DD'), device, token);
-                  deletePreviousBar();
-                  showSummary(username, moment(today).format('YYYY-MM-DD'), device, token);
-              };
-              redraw();
-              $('#next-date').click(function(){
-                  var tomorrow = moment(today).add(1, 'days');
-                  today = moment(today).add(1, 'days');
-                  date = today;
-                  $('#current-date').html(today.format('dddd, MMMM Do YYYY'));
-                  $('#calendar').fullCalendar('next');
-                  redraw();
-                  sortMe();
-              });
-
-              $('#previous-date').click(function(){
-                  var yesterday = moment(today).subtract(1, 'days');
-                  today = moment(today).subtract(1, 'days');
-                  $('#current-date').html(today.format('dddd, MMMM Do YYYY'));
-                  date = today;
-                  $('#calendar').fullCalendar('prev');
-                  redraw();
-              });
-            //   $('#calendar').fullCalendar({
-            //     header: '',
-            //     defaultDate: moment().subtract(1, 'days'),
-            //     defaultView: 'agendaDay',
-            //     slotDuration: '00:10:00',
-            //     allDaySlot: false,
-            //     slotEventOverlap: false,
-            //     scrollTime: '10:00:00',
-            //     eventAfterRender: function(event, element, view) {
-            //       $(element).css("background-image", 'url(' + event.url + ')');
-            //       $(element).css("background-size", 'cover');
-            //       // $(element).css("width", '90%');
-            //       // $(element).css("margin-left", '5%');
-            //       $(element).addClass('img-responsive');
-            //     },
-            // });
-          })
-          .fail(function() {
-              window.location.href = dsu + "oauth/authorize?client_id=mobility_visualization&response_type=token";
-          });
-      }
+    var today = moment().subtract(1, 'days');
+    // var token = url("#access_token");
+    var token = "41b33c0c-46f0-4f29-806e-32db67d47688";
+    var device = "android";
+    // var device = _.contains(['iPad', 'iPhone', 'iPod'], navigator.platform) ? 'ios': 'android';
+    var $currentDate = $('#current-date');
+    var $nextDate = $('#next-date');
+    var $prevDate = $('#previous-date');
+    var $walkingDistance = $("#walking-distance");
+    var $trekMile = $("#trek-mile");
+    var $activeTime = $("#active-time");
+    var $awayFromHome = $("#away-from-home");
+    $currentDate.html(today.format('dddd, MMMM Do YYYY') + ' (Yesterday)');
+    var redraw = function(){
+        deletePreviousDiv();
+        // For drawing the locations
+        drawDate(moment(today).format('YYYY-MM-DD'), device);
+        // For drawing out the bars of variables
+        showSummary(moment(today).format('YYYY-MM-DD'), device);
+    };
+    $nextDate.click(function(){
+        today = today.add(1, 'days');
+        $currentDate.html(today.format('dddd, MMMM Do YYYY'));
+        redraw();
+        sortMe();
     });
-
+    $prevDate.click(function(){
+        today = today.subtract(1, 'days');
+        $currentDate.html(today.format('dddd, MMMM Do YYYY'));
+        redraw();
+    });
+    redraw();
 </script>

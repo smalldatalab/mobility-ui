@@ -10,18 +10,17 @@
     <title><%= current_page.data.title || "The Middleman" %></title>
 
     <!-- Latest compiled and minified JavaScript -->
-    <%= stylesheet_link_tag "normalize", "all", "fullcalendar" %>
-    <%= javascript_include_tag "jquery.min", "moment.min", "all", "draw", "dsu", "fullcalendar", "fullcalendar_implementation" %>
-    <!-- // <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.min.js"></script> -->
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/js-url/1.8.4/url.js"></script>
-    <!-- // <script type="text/javascript" src="https://momentjs.com/downloads/moment.js"></script> -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="www.google.com/jsapi"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js" charset="utf-8"></script>
+    <%= stylesheet_link_tag "normalize", "all" %>
+    <%= javascript_include_tag "jquery.min", "moment.min", "all", "draw", "dsu", "url", "underscore-min"%>
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 
     <!-- Latest compiled and minified CSS -->
+    <script type="text/javascript" src="//www.google.com/jsapi"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 
+    <link href="stylesheets/normalize.css" rel="stylesheet" type="text/css"/>
+    <link href="stylesheets/all.css" rel="stylesheet" type="text/css" />
   </head>
 
   <body class="<%= page_classes %>">

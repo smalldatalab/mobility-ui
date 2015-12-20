@@ -62,35 +62,35 @@ h3, h4 {
   border-right-color: white;
 }
 
-.hours-out-of-house-color {
+.away-color {
   color: #3C85DA;
 }
 
-.hours-out-background-color {
+.away-background-color {
   background-color: #3C85DA;
 }
 
-.trek-mile-background-color {
+.trek-background-color {
   background-color: #8751B6;
 }
 
-.trek-mile-color {
+.trek-color {
   color: #8751B6;
 }
 
-.minutes-active-color {
+.active-color {
   color: #D36D6D;
 }
 
-.minutes-active-background-color {
+.active-background-color {
   background-color: #D36D6D;
 }
 
-.miles-walked-color {
+.miles-color {
   color: #E2D642;
 }
 
-.miles-walked-background-color {
+.miles-background-color {
   background-color: #E2D642;
 }
 
