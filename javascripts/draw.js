@@ -86,6 +86,7 @@ function getLocationMap(averg_lac, averg_long, start_time, end_time, index) {
                     "center="+ averg_lac + ',' + averg_long +
                     "&zoom=14&size=400x400"+
                     "&scale=2"+
+                    "&key="+"AIzaSyC1GFrL26ugupKi80EQynafH6-uiLcgZDg"+
                     "&markers=color:red%7Clabel:A%7C" + averg_lac + ',' + averg_long;
                 map_div.appendChild(img_div);
                 location_div.appendChild(map_div);
@@ -167,7 +168,7 @@ function showSummary(date, device) {
             device:device,
             success:
                 function(data) {
-                    var distance = (data["walking_distance_in_km"]*0.621371192).toFixed(1);
+                    var distance = (data["walking_distance"]["value"]*0.621371192).toFixed(1);
                     if (typeof distance != 'undefined') {
                         $walkingDistance.data('value', distance);
                         if (distance < 2) {
@@ -180,8 +181,7 @@ function showSummary(date, device) {
                         $walkingDistance.data('value', 'No Data');
                         $walkingDistance.html('No Data');
                     }
-
-                    var trek = (data["longest-trek-in-km"]*0.621371192).toFixed(1);
+                    var trek = (data["longest_trek"]["value"]*0.621371192).toFixed(1);
                     if (typeof trek != 'undefined') {
                         $trekMile.data('value', trek);
                         if (trek < 2) {
@@ -195,7 +195,7 @@ function showSummary(date, device) {
                         $trekMile.html('No Data');
                     }
 
-                    var active = data["active_time_in_seconds"];
+                    var active = data["active_time"]["value"];
                     if (typeof active != 'undefined') {
                         var active_data = (active/60).toFixed(0);
                         $activeTime.data('value', active_data);
@@ -212,7 +212,7 @@ function showSummary(date, device) {
                         $activeTime.html('No Data');
                     }
 
-                    var away = data["time_not_at_home_in_seconds"];
+                    var away = data["home"] ? data["home"]["time_not_at_home"]["value"] : undefined;
                     if (typeof away != 'undefined') {
                         var away_data = (away/60).toFixed(0);
                         $awayFromHome.data('value', away_data);
@@ -266,10 +266,10 @@ function pastSevenDaysSummary(date, device) {
                 date: date.subtract(days, 'days').format('YYYY-MM-DD'),
                 device: device,
                 success: function(data) {
-                    distance_array.push((data["walking_distance_in_km"] | 0) *0.621371192);
-                    trek_array.push((data["longest-trek-in-km"] | 0) *0.621371192);
-                    away_array.push(data["time_not_at_home_in_seconds"]| 0);
-                    active_array.push(data["active_time_in_seconds"] | 0);
+                    distance_array.push((data["walking_distance"]["value"] | 0) *0.621371192);
+                    trek_array.push((data["longest_trek"]["value"] | 0) *0.621371192);
+                    away_array.push(data["time_not_at_home"]["value"] | 0);
+                    active_array.push(data["active_time"]["value"] | 0);
                 },
                 error: function(data) {
                 }
